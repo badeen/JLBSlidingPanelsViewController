@@ -19,8 +19,8 @@ typedef enum {
 @interface JBPanelViewController : UIViewController
 
 @property (nonatomic, weak) UIViewController <JBSlidingPanelChildViewController> *mainViewController;
-@property (nonatomic, weak) UIViewController <JBSlidingPanelChildViewController> *leftViewController;
-@property (nonatomic, weak) UIViewController <JBSlidingPanelChildViewController> *rightViewController;
+@property (nonatomic, strong) UIViewController <JBSlidingPanelChildViewController> *leftViewController;
+@property (nonatomic, strong) UIViewController <JBSlidingPanelChildViewController> *rightViewController;
 @property (nonatomic) CGFloat overlapWidth;
 @property (nonatomic, readonly) JBSlidingPanelState state;
 
