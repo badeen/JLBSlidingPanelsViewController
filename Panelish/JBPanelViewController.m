@@ -211,6 +211,9 @@
             [UIView setAnimationsEnabled:YES];
             [_visibleBackgroundViewController didMoveToParentViewController:self];
             _visibleBackgroundViewController.activePanelView = YES;
+            self.mainViewController.activePanelView = NO;
+        } else {
+            self.mainViewController.activePanelView = YES;
         }
     }
 }
@@ -276,18 +279,21 @@ const CGFloat kJLBMinimumBackgroundScale = 0.95f;
     self.visibleBackgroundViewController = self.leftViewController;
     self.leftViewController.view.transform = CGAffineTransformMakeScale(kJLBMinimumBackgroundScale, kJLBMinimumBackgroundScale);
     self.leftViewController.view.alpha = kJLBMinimumBackgroundAlpha;
-    self.view.userInteractionEnabled = NO;
+    self.mainViewController.view.userInteractionEnabled = NO;
     
     [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationCurveEaseOut animations:^{
         self.scrollView.contentOffset = CGPointMake(-10.0f, 0.0f);
         self.leftViewController.view.transform = CGAffineTransformIdentity;
         self.leftViewController.view.alpha = 1.0f;
     } completion:^(BOOL finished) {
+        self.mainViewController.view.userInteractionEnabled = YES;
+        self.state = JBSlidingPanelLeftState;
         [UIView animateWithDuration:0.2 delay:0 options:UIViewAnimationCurveEaseIn animations:^{
             self.scrollView.contentOffset = CGPointZero;
+            
         } completion:^(BOOL finished) {
-            self.view.userInteractionEnabled = YES;
-            self.state = JBSlidingPanelLeftState;
+            
+            
         }];
     }];
 }
@@ -297,18 +303,19 @@ const CGFloat kJLBMinimumBackgroundScale = 0.95f;
     self.visibleBackgroundViewController = self.rightViewController;
     self.rightViewController.view.transform = CGAffineTransformMakeScale(kJLBMinimumBackgroundScale, kJLBMinimumBackgroundScale);
     self.rightViewController.view.alpha = kJLBMinimumBackgroundAlpha;
-    self.view.userInteractionEnabled = NO;
+    self.mainViewController.view.userInteractionEnabled = NO;
     
     [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationCurveEaseOut animations:^{
         self.scrollView.contentOffset = CGPointMake((CGRectGetWidth(self.scrollView.frame) * 2.0f) + 10.0f, 0.0f);
         self.rightViewController.view.transform = CGAffineTransformIdentity;
         self.rightViewController.view.alpha = 1.0f;
     } completion:^(BOOL finished) {
+        self.mainViewController.view.userInteractionEnabled = YES;
+        self.state = JBSlidingPanelRightState;
         [UIView animateWithDuration:0.2 delay:0 options:UIViewAnimationCurveEaseIn animations:^{
             self.scrollView.contentOffset = CGPointMake(CGRectGetWidth(self.scrollView.frame) * 2.0f, 0.0f);
         } completion:^(BOOL finished) {
-            self.view.userInteractionEnabled = YES;
-            self.state = JBSlidingPanelRightState;
+            
         }];
     }];
 }
