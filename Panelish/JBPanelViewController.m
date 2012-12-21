@@ -28,11 +28,16 @@
 @end
 
 
+const CGFloat kJLBMinimumBackgroundAlpha = 0.4f;
+const CGFloat kJLBMinimumBackgroundScale = 0.95f;
+
+
 @interface JBPanelViewController () <UIScrollViewDelegate>
 
 @property (nonatomic, weak) JBPanelScrollView *scrollView;
 @property (nonatomic, weak) UIView *mainView;
 @property (nonatomic) BOOL overlapEnabled;
+@property (nonatomic, getter = isScrollingAnimationEnabled) BOOL scrollingAnimationEnabled;
 @property (nonatomic, readwrite) JBSlidingPanelState state;
 @property (nonatomic, weak) UIViewController <JBSlidingPanelChildViewController> *visibleBackgroundViewController;
 
@@ -63,6 +68,7 @@
     self.overlapWidth = 60.0f;
     self.overlapEnabled = YES;
     self.state = JBSlidingPanelCenterState;
+    self.scrollingAnimationEnabled = YES;
 }
 
 - (void)viewDidLoad
@@ -118,53 +124,58 @@
 
 - (void)setMainViewController:(UIViewController<JBSlidingPanelChildViewController> *)mainViewController
 {
-    [_mainViewController beginAppearanceTransition:YES animated:NO];
-    [_mainViewController removeFromParentViewController];
-    [_mainViewController endAppearanceTransition];
-    
-    _mainViewController = mainViewController;
-    [self addChildViewController:mainViewController];
-    [_mainViewController beginAppearanceTransition:YES animated:NO];
-    CGRect centeredRect = CGRectMake(CGRectGetWidth(self.scrollView.bounds),
-                                     0.0f,
-                                     CGRectGetWidth(self.scrollView.bounds),
-                                     CGRectGetHeight(self.scrollView.bounds));
-    _mainViewController.view.frame = centeredRect;
-    [self.scrollView addSubview:_mainViewController.view];
-    
-    
-    _mainViewController.activePanelView = YES;
-    _leftViewController.activePanelView = NO;
-    _rightViewController.activePanelView = NO;
+    [self setMainViewController:mainViewController animated:NO];
 }
 
 - (void)setMainViewController:(UIViewController<JBSlidingPanelChildViewController> *)mainViewController animated:(BOOL)animated
 {
-    if (animated) {
-        [_mainViewController beginAppearanceTransition:YES animated:YES];
-        [UIView animateWithDuration:0.1 delay:0.0f options:UIViewAnimationCurveLinear animations:^{
-            _mainViewController.view.transform = CGAffineTransformIdentity;
-        } completion:^(BOOL finished) {
-            [_mainViewController removeFromParentViewController];
-            [_mainViewController endAppearanceTransition];
-            self.overlapEnabled = NO;
-            _mainViewController = mainViewController;
-            //[_mainViewController.view addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(mainViewTapped:)]];
-            _mainViewController.view.frame = CGRectMake(CGRectGetWidth(self.scrollView.bounds),
-                                                        0.0f,
-                                                        CGRectGetWidth(self.scrollView.bounds),
-                                                        CGRectGetHeight(self.scrollView.bounds));
-            [_mainViewController beginAppearanceTransition:YES animated:NO];
-            [self.scrollView addSubview:_mainViewController.view];
-            [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationCurveLinear animations:^{
-                self.scrollView.contentOffset = CGPointMake(CGRectGetWidth(self.scrollView.frame), 0.0f);
+    if (_mainViewController != mainViewController) {
+        self.view.userInteractionEnabled = NO;
+        UIViewController *fromVC = _mainViewController;
+        [fromVC willMoveToParentViewController:nil];
+        [fromVC viewWillDisappear:animated];
+        
+        _mainViewController = mainViewController;
+        
+        UIViewController <JBSlidingPanelChildViewController> *toVC = _mainViewController;
+        if (toVC) {
+            [self addChildViewController:toVC];
+            CGRect centeredRect = CGRectMake(CGRectGetWidth(self.scrollView.bounds),
+                                             0.0f,
+                                             CGRectGetWidth(self.scrollView.bounds),
+                                             CGRectGetHeight(self.scrollView.bounds));
+            toVC.view.frame = centeredRect;
+            [toVC viewWillAppear:animated];
+        }
+            
+        if (animated && fromVC) {
+            [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveLinear animations:^{
+                fromVC.view.transform = CGAffineTransformMakeTranslation(self.overlapWidth, 0.0f);
             } completion:^(BOOL finished) {
-                [_mainViewController endAppearanceTransition];
-                self.overlapEnabled = YES;
+                [fromVC.view removeFromSuperview];
+                [fromVC viewDidDisappear:animated];
+                [fromVC removeFromParentViewController];
+                
+                [self.scrollView addSubview:toVC.view];
+                self.overlapEnabled = NO;
+                
+                [self hideSidesWithCompletion:^{
+                    [toVC viewDidAppear:YES];
+                    [toVC didMoveToParentViewController:self];
+                    self.view.userInteractionEnabled = YES;
+                    self.overlapEnabled = YES;
+                }];
             }];
-        }];
-    } else {
-        self.mainViewController = mainViewController;
+        } else {
+            [fromVC.view removeFromSuperview];
+            [fromVC viewDidDisappear:animated];
+            [fromVC removeFromParentViewController];
+            
+            [self.scrollView addSubview:toVC.view];
+            [toVC viewDidAppear:YES];
+            [toVC didMoveToParentViewController:self];
+            self.view.userInteractionEnabled = YES;
+        }
     }
 }
 
@@ -220,49 +231,62 @@
 
 #pragma mark - Scroll view delegate
 
-const CGFloat kJLBMinimumBackgroundAlpha = 0.4f;
-const CGFloat kJLBMinimumBackgroundScale = 0.95f;
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
+{
+    self.mainViewController.view.userInteractionEnabled = NO;
+    self.leftViewController.view.userInteractionEnabled = NO;
+    self.rightViewController.view.userInteractionEnabled = NO;
+}
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
+{
+    self.mainViewController.view.userInteractionEnabled = YES;
+    self.visibleBackgroundViewController.view.userInteractionEnabled = YES;
+}
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-    CGFloat mainViewWidth = CGRectGetWidth(self.mainViewController.view.frame);
-    CGFloat scrollViewOffsetX = scrollView.contentOffset.x;
-    CGFloat scrollViewContentSizeWidth = scrollView.contentSize.width;
-    CGFloat xOffsetFromCenter = scrollViewOffsetX - mainViewWidth;
-    
-    if (self.overlapEnabled) {
-        CGFloat adjustmentX = self.overlapWidth * (xOffsetFromCenter / mainViewWidth);
-        self.mainViewController.view.transform = CGAffineTransformMakeTranslation(adjustmentX, 0.0f);
+    if (self.isScrollingAnimationEnabled) {
+        CGFloat mainViewWidth = CGRectGetWidth(self.mainViewController.view.frame);
+        CGFloat scrollViewOffsetX = scrollView.contentOffset.x;
+        CGFloat scrollViewContentSizeWidth = scrollView.contentSize.width;
+        CGFloat xOffsetFromCenter = scrollViewOffsetX - mainViewWidth;
+        
+        if (self.overlapEnabled) {
+            CGFloat adjustmentX = self.overlapWidth * (xOffsetFromCenter / mainViewWidth);
+            self.mainViewController.view.transform = CGAffineTransformMakeTranslation(adjustmentX, 0.0f);
+        }
+        
+        NSInteger index = (scrollViewOffsetX / scrollViewContentSizeWidth) * (scrollViewContentSizeWidth / mainViewWidth);
+        switch (index) {
+            case JBSlidingPanelLeftState:
+                self.state = JBSlidingPanelLeftState;
+                break;
+            case JBSlidingPanelCenterState:
+                self.state = JBSlidingPanelCenterState;
+                break;
+            case JBSlidingPanelRightState:
+                self.state = JBSlidingPanelRightState;
+                break;
+            default:
+                break;
+        }
+        
+        if (scrollViewOffsetX < mainViewWidth) {
+            self.visibleBackgroundViewController = self.leftViewController;
+        } else if (scrollViewOffsetX > mainViewWidth) {
+            self.visibleBackgroundViewController = self.rightViewController;
+        } else {
+            self.visibleBackgroundViewController = nil;
+            self.overlapEnabled = YES;
+        }
+        
+        CGFloat scale = MIN(1.0f, kJLBMinimumBackgroundScale + ((1.0f - kJLBMinimumBackgroundScale) * ABS(xOffsetFromCenter / mainViewWidth)));
+        CGFloat alpha = kJLBMinimumBackgroundAlpha + ((1.0f - kJLBMinimumBackgroundAlpha) * ABS(xOffsetFromCenter / mainViewWidth));
+        
+        self.visibleBackgroundViewController.view.transform = CGAffineTransformMakeScale(scale, scale);
+        self.visibleBackgroundViewController.view.alpha = alpha;
     }
-    
-    NSInteger index = (scrollViewOffsetX / scrollViewContentSizeWidth) * (scrollViewContentSizeWidth / mainViewWidth);
-    switch (index) {
-        case JBSlidingPanelLeftState:
-            self.state = JBSlidingPanelLeftState;
-            break;
-        case JBSlidingPanelCenterState:
-            self.state = JBSlidingPanelCenterState;
-            break;
-        case JBSlidingPanelRightState:
-            self.state = JBSlidingPanelRightState;
-            break;
-        default:
-            break;
-    }
-    
-    if (scrollViewOffsetX < mainViewWidth) {
-        self.visibleBackgroundViewController = self.leftViewController;
-    } else if (scrollViewOffsetX > mainViewWidth) {
-        self.visibleBackgroundViewController = self.rightViewController;
-    } else {
-        self.visibleBackgroundViewController = nil;
-    }
-    
-    CGFloat scale = MIN(1.0f, kJLBMinimumBackgroundScale + ((1.0f - kJLBMinimumBackgroundScale) * ABS(xOffsetFromCenter / mainViewWidth)));
-    CGFloat alpha = kJLBMinimumBackgroundAlpha + ((1.0f - kJLBMinimumBackgroundAlpha) * ABS(xOffsetFromCenter / mainViewWidth));
-    
-    self.visibleBackgroundViewController.view.transform = CGAffineTransformMakeScale(scale, scale);
-    self.visibleBackgroundViewController.view.alpha = alpha;
 }
 
 #pragma mark - Actions
@@ -277,22 +301,24 @@ const CGFloat kJLBMinimumBackgroundScale = 0.95f;
 - (IBAction)revealLeft:(id)sender
 {
     self.visibleBackgroundViewController = self.leftViewController;
-    self.leftViewController.view.transform = CGAffineTransformMakeScale(kJLBMinimumBackgroundScale, kJLBMinimumBackgroundScale);
-    self.leftViewController.view.alpha = kJLBMinimumBackgroundAlpha;
-    self.mainViewController.view.userInteractionEnabled = NO;
+    self.visibleBackgroundViewController.view.transform = CGAffineTransformMakeScale(kJLBMinimumBackgroundScale, kJLBMinimumBackgroundScale);
+    self.visibleBackgroundViewController.view.alpha = kJLBMinimumBackgroundAlpha;
+    self.view.userInteractionEnabled = NO;
+    self.scrollingAnimationEnabled = NO;
     
     [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationCurveEaseOut animations:^{
         self.scrollView.contentOffset = CGPointMake(-10.0f, 0.0f);
-        self.leftViewController.view.transform = CGAffineTransformIdentity;
-        self.leftViewController.view.alpha = 1.0f;
+        self.visibleBackgroundViewController.view.transform = CGAffineTransformIdentity;
+        self.visibleBackgroundViewController.view.alpha = 1.0f;
+        self.mainViewController.view.transform = CGAffineTransformMakeTranslation(-self.overlapWidth, 0.0f);
     } completion:^(BOOL finished) {
-        self.mainViewController.view.userInteractionEnabled = YES;
+        self.view.userInteractionEnabled = YES;
         self.state = JBSlidingPanelLeftState;
+        self.scrollingAnimationEnabled = YES;
+        self.visibleBackgroundViewController.view.userInteractionEnabled = YES;
         [UIView animateWithDuration:0.2 delay:0 options:UIViewAnimationCurveEaseIn animations:^{
             self.scrollView.contentOffset = CGPointZero;
-            
         } completion:^(BOOL finished) {
-            
             
         }];
     }];
@@ -301,17 +327,21 @@ const CGFloat kJLBMinimumBackgroundScale = 0.95f;
 - (IBAction)revealRight:(id)sender
 {
     self.visibleBackgroundViewController = self.rightViewController;
-    self.rightViewController.view.transform = CGAffineTransformMakeScale(kJLBMinimumBackgroundScale, kJLBMinimumBackgroundScale);
-    self.rightViewController.view.alpha = kJLBMinimumBackgroundAlpha;
-    self.mainViewController.view.userInteractionEnabled = NO;
+    self.visibleBackgroundViewController.view.transform = CGAffineTransformMakeScale(kJLBMinimumBackgroundScale, kJLBMinimumBackgroundScale);
+    self.visibleBackgroundViewController.view.alpha = kJLBMinimumBackgroundAlpha;
+    self.view.userInteractionEnabled = NO;
+    self.scrollingAnimationEnabled = NO;
     
     [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationCurveEaseOut animations:^{
         self.scrollView.contentOffset = CGPointMake((CGRectGetWidth(self.scrollView.frame) * 2.0f) + 10.0f, 0.0f);
-        self.rightViewController.view.transform = CGAffineTransformIdentity;
-        self.rightViewController.view.alpha = 1.0f;
+        self.visibleBackgroundViewController.view.transform = CGAffineTransformIdentity;
+        self.visibleBackgroundViewController.view.alpha = 1.0f;
+        self.mainViewController.view.transform = CGAffineTransformMakeTranslation(self.overlapWidth, 0.0f);
     } completion:^(BOOL finished) {
-        self.mainViewController.view.userInteractionEnabled = YES;
+        self.view.userInteractionEnabled = YES;
         self.state = JBSlidingPanelRightState;
+        self.scrollingAnimationEnabled = YES;
+        self.visibleBackgroundViewController.view.userInteractionEnabled = YES;
         [UIView animateWithDuration:0.2 delay:0 options:UIViewAnimationCurveEaseIn animations:^{
             self.scrollView.contentOffset = CGPointMake(CGRectGetWidth(self.scrollView.frame) * 2.0f, 0.0f);
         } completion:^(BOOL finished) {
@@ -322,7 +352,28 @@ const CGFloat kJLBMinimumBackgroundScale = 0.95f;
 
 - (IBAction)hideSides:(id)sender
 {
-    [self.scrollView setContentOffset:CGPointMake(CGRectGetWidth(self.scrollView.frame), 0.0f) animated:YES];
+    [self hideSidesWithCompletion:nil];
+}
+
+- (void)hideSidesWithCompletion:(void (^)(void))completion
+{
+    self.view.userInteractionEnabled = NO;
+    self.scrollingAnimationEnabled = NO;
+    
+    [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationCurveEaseOut animations:^{
+        self.scrollView.contentOffset = CGPointMake(CGRectGetWidth(self.scrollView.frame), 0.0f);
+        self.visibleBackgroundViewController.view.transform = CGAffineTransformMakeScale(kJLBMinimumBackgroundScale, kJLBMinimumBackgroundScale);
+        self.visibleBackgroundViewController.view.alpha = kJLBMinimumBackgroundAlpha;
+        self.mainViewController.view.transform = CGAffineTransformIdentity;
+    } completion:^(BOOL finished) {
+        self.view.userInteractionEnabled = YES;
+        self.scrollingAnimationEnabled = YES;
+        self.state = JBSlidingPanelCenterState;
+        self.visibleBackgroundViewController = nil;
+        if (completion) {
+            completion();
+        }
+    }];
 }
 
 @end

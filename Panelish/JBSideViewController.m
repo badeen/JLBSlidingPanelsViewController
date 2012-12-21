@@ -105,7 +105,49 @@
             }];
         }];
     } else {
-        [self.slidingPanelViewController hideSides:nil];
+        UITableViewController *tableVC = [[UITableViewController alloc] initWithStyle:UITableViewStyleGrouped];
+        tableVC.title = [NSString stringWithFormat:@"Panelish %i", indexPath.row + 1];
+        tableVC.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Left" style:UIBarButtonItemStyleBordered target:self action:@selector(showLeft:)];
+        tableVC.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Right" style:UIBarButtonItemStyleBordered target:self action:@selector(showRight:)];
+        JBMainViewController *mainVC = [[JBMainViewController alloc] initWithRootViewController:tableVC];
+        
+        mainVC.view.layer.shadowPath = [[UIBezierPath bezierPathWithRect:mainVC.view.bounds] CGPath];
+        mainVC.view.layer.shadowColor = [[UIColor blackColor] CGColor];
+        mainVC.view.layer.shadowOffset = CGSizeZero;
+        mainVC.view.layer.shadowRadius = 8.0f;
+        mainVC.view.layer.shadowOpacity = 1.0f;
+        
+        [self.slidingPanelViewController setMainViewController:mainVC animated:YES];
+        
+        //[self.slidingPanelViewController hideSides:nil];
+    }
+}
+
+#pragma mark - Actions
+
+- (void)showLeft:(id)sender
+{
+    switch (self.slidingPanelViewController.state) {
+        case JBSlidingPanelLeftState:
+            [self.slidingPanelViewController hideSides:sender];
+            break;
+        case JBSlidingPanelCenterState:
+            [self.slidingPanelViewController revealLeft:sender];
+        default:
+            break;
+    }
+}
+
+- (void)showRight:(id)sender
+{
+    switch (self.slidingPanelViewController.state) {
+        case JBSlidingPanelRightState:
+            [self.slidingPanelViewController hideSides:sender];
+            break;
+        case JBSlidingPanelCenterState:
+            [self.slidingPanelViewController revealRight:sender];
+        default:
+            break;
     }
 }
 
