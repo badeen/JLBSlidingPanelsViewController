@@ -27,7 +27,7 @@
     self.window.rootViewController = self.viewController;
     
     UITableViewController *tableVC = [[UITableViewController alloc] initWithStyle:UITableViewStyleGrouped];
-    tableVC.title = @"Panelish";
+    tableVC.title = @"Panelish 1";
     tableVC.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Left" style:UIBarButtonItemStyleBordered target:self action:@selector(showLeft:)];
     tableVC.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Right" style:UIBarButtonItemStyleBordered target:self action:@selector(showRight:)];
     JBMainViewController *mainVC = [[JBMainViewController alloc] initWithRootViewController:tableVC];
