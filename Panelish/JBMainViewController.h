@@ -8,14 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
-#import "JBPanelViewController.h"
+#import "JLBSlidingPanelViewController.h"
 
-@interface JBMainViewController : UINavigationController <JBSlidingPanelChildViewController>
+@interface JBMainViewController : UINavigationController <JLBSlidingPanelChildViewController>
 
 /*
  Properties for complying with the JBSlidingPanelChildViewController protocol
  */
-@property (nonatomic, strong) JBPanelViewController *slidingPanelViewController;
+@property (nonatomic, strong) JLBSlidingPanelViewController *slidingPanelViewController;
 @property (nonatomic, getter = isActivePanelView) BOOL activePanelView;
 
 @end

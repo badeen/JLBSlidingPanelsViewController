@@ -10,7 +10,7 @@
 
 #import <QuartzCore/QuartzCore.h>
 
-#import "JBPanelViewController.h"
+#import "JLBSlidingPanelViewController.h"
 #import "JBSideViewController.h"
 #import "JBMainViewController.h"
 
@@ -23,7 +23,7 @@
     self.window.backgroundColor = [UIColor blackColor];
     [self.window makeKeyAndVisible];
     
-    self.viewController  = [[JBPanelViewController alloc] init];
+    self.viewController  = [[JLBSlidingPanelViewController alloc] init];
     self.window.rootViewController = self.viewController;
     
     UITableViewController *tableVC = [[UITableViewController alloc] initWithStyle:UITableViewStyleGrouped];
@@ -82,10 +82,10 @@
 - (void)showLeft:(id)sender
 {
     switch (self.viewController.state) {
-        case JBSlidingPanelLeftState:
+        case JLBSlidingPanelLeftState:
             [self.viewController hideSides:sender];
             break;
-        case JBSlidingPanelCenterState:
+        case JLBSlidingPanelCenterState:
             [self.viewController revealLeft:sender];
         default:
             break;
@@ -95,10 +95,10 @@
 - (void)showRight:(id)sender
 {
     switch (self.viewController.state) {
-        case JBSlidingPanelRightState:
+        case JLBSlidingPanelRightState:
             [self.viewController hideSides:sender];
             break;
-        case JBSlidingPanelCenterState:
+        case JLBSlidingPanelCenterState:
             [self.viewController revealRight:sender];
         default:
             break;

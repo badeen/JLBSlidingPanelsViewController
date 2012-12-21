@@ -128,10 +128,10 @@
 - (void)showLeft:(id)sender
 {
     switch (self.slidingPanelViewController.state) {
-        case JBSlidingPanelLeftState:
+        case JLBSlidingPanelLeftState:
             [self.slidingPanelViewController hideSides:sender];
             break;
-        case JBSlidingPanelCenterState:
+        case JLBSlidingPanelCenterState:
             [self.slidingPanelViewController revealLeft:sender];
         default:
             break;
@@ -141,10 +141,10 @@
 - (void)showRight:(id)sender
 {
     switch (self.slidingPanelViewController.state) {
-        case JBSlidingPanelRightState:
+        case JLBSlidingPanelRightState:
             [self.slidingPanelViewController hideSides:sender];
             break;
-        case JBSlidingPanelCenterState:
+        case JLBSlidingPanelCenterState:
             [self.slidingPanelViewController revealRight:sender];
         default:
             break;

@@ -6,7 +6,7 @@
 //  Copyright (c) 2012 Jonathan Badeen. All rights reserved.
 //
 
-#import "JBPanelViewController.h"
+#import "JLBSlidingPanelViewController.h"
 
 #import <QuartzCore/QuartzCore.h>
 
@@ -32,18 +32,18 @@ const CGFloat kJLBMinimumBackgroundAlpha = 0.4f;
 const CGFloat kJLBMinimumBackgroundScale = 0.95f;
 
 
-@interface JBPanelViewController () <UIScrollViewDelegate>
+@interface JLBSlidingPanelViewController () <UIScrollViewDelegate>
 
 @property (nonatomic, weak) JBPanelScrollView *scrollView;
 @property (nonatomic, weak) UIView *mainView;
 @property (nonatomic) BOOL overlapEnabled;
 @property (nonatomic, getter = isScrollingAnimationEnabled) BOOL scrollingAnimationEnabled;
-@property (nonatomic, readwrite) JBSlidingPanelState state;
-@property (nonatomic, weak) UIViewController <JBSlidingPanelChildViewController> *visibleBackgroundViewController;
+@property (nonatomic, readwrite) JLBSlidingPanelState state;
+@property (nonatomic, weak) UIViewController <JLBSlidingPanelChildViewController> *visibleBackgroundViewController;
 
 @end
 
-@implementation JBPanelViewController
+@implementation JLBSlidingPanelViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -67,7 +67,7 @@ const CGFloat kJLBMinimumBackgroundScale = 0.95f;
 {
     self.overlapWidth = 60.0f;
     self.overlapEnabled = YES;
-    self.state = JBSlidingPanelCenterState;
+    self.state = JLBSlidingPanelCenterState;
     self.scrollingAnimationEnabled = YES;
 }
 
@@ -122,12 +122,12 @@ const CGFloat kJLBMinimumBackgroundScale = 0.95f;
     return self.shouldAutomaticallyForwardAppearanceMethods && self.shouldAutomaticallyForwardRotationMethods;
 }
 
-- (void)setMainViewController:(UIViewController<JBSlidingPanelChildViewController> *)mainViewController
+- (void)setMainViewController:(UIViewController<JLBSlidingPanelChildViewController> *)mainViewController
 {
     [self setMainViewController:mainViewController animated:NO];
 }
 
-- (void)setMainViewController:(UIViewController<JBSlidingPanelChildViewController> *)mainViewController animated:(BOOL)animated
+- (void)setMainViewController:(UIViewController<JLBSlidingPanelChildViewController> *)mainViewController animated:(BOOL)animated
 {
     if (_mainViewController != mainViewController) {
         self.view.userInteractionEnabled = NO;
@@ -137,7 +137,7 @@ const CGFloat kJLBMinimumBackgroundScale = 0.95f;
         
         _mainViewController = mainViewController;
         
-        UIViewController <JBSlidingPanelChildViewController> *toVC = _mainViewController;
+        UIViewController <JLBSlidingPanelChildViewController> *toVC = _mainViewController;
         if (toVC) {
             [self addChildViewController:toVC];
             CGRect centeredRect = CGRectMake(CGRectGetWidth(self.scrollView.bounds),
@@ -179,19 +179,19 @@ const CGFloat kJLBMinimumBackgroundScale = 0.95f;
     }
 }
 
-- (void)setLeftViewController:(UIViewController<JBSlidingPanelChildViewController> *)leftViewController
+- (void)setLeftViewController:(UIViewController<JLBSlidingPanelChildViewController> *)leftViewController
 {
     _leftViewController = leftViewController;
     _leftViewController.slidingPanelViewController = self;
 }
 
-- (void)setRightViewController:(UIViewController<JBSlidingPanelChildViewController> *)rightViewController
+- (void)setRightViewController:(UIViewController<JLBSlidingPanelChildViewController> *)rightViewController
 {
     _rightViewController = rightViewController;
     _rightViewController.slidingPanelViewController = self;
 }
 
-- (void)setVisibleBackgroundViewController:(UIViewController<JBSlidingPanelChildViewController> *)visibleBackgroundViewController
+- (void)setVisibleBackgroundViewController:(UIViewController<JLBSlidingPanelChildViewController> *)visibleBackgroundViewController
 {
     if (_visibleBackgroundViewController != visibleBackgroundViewController) {
         
@@ -259,14 +259,14 @@ const CGFloat kJLBMinimumBackgroundScale = 0.95f;
         
         NSInteger index = (scrollViewOffsetX / scrollViewContentSizeWidth) * (scrollViewContentSizeWidth / mainViewWidth);
         switch (index) {
-            case JBSlidingPanelLeftState:
-                self.state = JBSlidingPanelLeftState;
+            case JLBSlidingPanelLeftState:
+                self.state = JLBSlidingPanelLeftState;
                 break;
-            case JBSlidingPanelCenterState:
-                self.state = JBSlidingPanelCenterState;
+            case JLBSlidingPanelCenterState:
+                self.state = JLBSlidingPanelCenterState;
                 break;
-            case JBSlidingPanelRightState:
-                self.state = JBSlidingPanelRightState;
+            case JLBSlidingPanelRightState:
+                self.state = JLBSlidingPanelRightState;
                 break;
             default:
                 break;
@@ -313,7 +313,7 @@ const CGFloat kJLBMinimumBackgroundScale = 0.95f;
         self.mainViewController.view.transform = CGAffineTransformMakeTranslation(-self.overlapWidth, 0.0f);
     } completion:^(BOOL finished) {
         self.view.userInteractionEnabled = YES;
-        self.state = JBSlidingPanelLeftState;
+        self.state = JLBSlidingPanelLeftState;
         self.scrollingAnimationEnabled = YES;
         self.visibleBackgroundViewController.view.userInteractionEnabled = YES;
         [UIView animateWithDuration:0.2 delay:0 options:UIViewAnimationCurveEaseIn animations:^{
@@ -339,7 +339,7 @@ const CGFloat kJLBMinimumBackgroundScale = 0.95f;
         self.mainViewController.view.transform = CGAffineTransformMakeTranslation(self.overlapWidth, 0.0f);
     } completion:^(BOOL finished) {
         self.view.userInteractionEnabled = YES;
-        self.state = JBSlidingPanelRightState;
+        self.state = JLBSlidingPanelRightState;
         self.scrollingAnimationEnabled = YES;
         self.visibleBackgroundViewController.view.userInteractionEnabled = YES;
         [UIView animateWithDuration:0.2 delay:0 options:UIViewAnimationCurveEaseIn animations:^{
@@ -368,7 +368,7 @@ const CGFloat kJLBMinimumBackgroundScale = 0.95f;
     } completion:^(BOOL finished) {
         self.view.userInteractionEnabled = YES;
         self.scrollingAnimationEnabled = YES;
-        self.state = JBSlidingPanelCenterState;
+        self.state = JLBSlidingPanelCenterState;
         self.visibleBackgroundViewController = nil;
         if (completion) {
             completion();

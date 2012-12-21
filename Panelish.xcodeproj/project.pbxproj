@@ -16,7 +16,7 @@
 		ABF8B616167F9FC500E96B94 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = ABF8B615167F9FC500E96B94 /* Default.png */; };
 		ABF8B618167F9FC500E96B94 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ABF8B617167F9FC500E96B94 /* Default@2x.png */; };
 		ABF8B61A167F9FC500E96B94 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ABF8B619167F9FC500E96B94 /* Default-568h@2x.png */; };
-		ABF8B622167FA00000E96B94 /* JBPanelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ABF8B621167FA00000E96B94 /* JBPanelViewController.m */; };
+		ABF8B622167FA00000E96B94 /* JLBSlidingPanelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ABF8B621167FA00000E96B94 /* JLBSlidingPanelViewController.m */; };
 		ABF8B624167FB56A00E96B94 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ABF8B623167FB56A00E96B94 /* QuartzCore.framework */; };
 		ABF9517E168104C400C7043F /* JBSideViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ABF9517D168104C400C7043F /* JBSideViewController.m */; };
 		ABF95181168125FD00C7043F /* JBMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ABF95180168125FD00C7043F /* JBMainViewController.m */; };
@@ -36,8 +36,8 @@
 		ABF8B615167F9FC500E96B94 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		ABF8B617167F9FC500E96B94 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		ABF8B619167F9FC500E96B94 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
-		ABF8B620167FA00000E96B94 /* JBPanelViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JBPanelViewController.h; sourceTree = "<group>"; };
-		ABF8B621167FA00000E96B94 /* JBPanelViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JBPanelViewController.m; sourceTree = "<group>"; };
+		ABF8B620167FA00000E96B94 /* JLBSlidingPanelViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JLBSlidingPanelViewController.h; sourceTree = "<group>"; };
+		ABF8B621167FA00000E96B94 /* JLBSlidingPanelViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JLBSlidingPanelViewController.m; sourceTree = "<group>"; };
 		ABF8B623167FB56A00E96B94 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		ABF9517C168104C400C7043F /* JBSideViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JBSideViewController.h; sourceTree = "<group>"; };
 		ABF9517D168104C400C7043F /* JBSideViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JBSideViewController.m; sourceTree = "<group>"; };
@@ -93,8 +93,8 @@
 			children = (
 				ABF8B612167F9FC500E96B94 /* JBAppDelegate.h */,
 				ABF8B613167F9FC500E96B94 /* JBAppDelegate.m */,
-				ABF8B620167FA00000E96B94 /* JBPanelViewController.h */,
-				ABF8B621167FA00000E96B94 /* JBPanelViewController.m */,
+				ABF8B620167FA00000E96B94 /* JLBSlidingPanelViewController.h */,
+				ABF8B621167FA00000E96B94 /* JLBSlidingPanelViewController.m */,
 				ABF9517F168125FD00C7043F /* JBMainViewController.h */,
 				ABF95180168125FD00C7043F /* JBMainViewController.m */,
 				ABF9517C168104C400C7043F /* JBSideViewController.h */,
@@ -186,7 +186,7 @@
 			files = (
 				ABF8B610167F9FC500E96B94 /* main.m in Sources */,
 				ABF8B614167F9FC500E96B94 /* JBAppDelegate.m in Sources */,
-				ABF8B622167FA00000E96B94 /* JBPanelViewController.m in Sources */,
+				ABF8B622167FA00000E96B94 /* JLBSlidingPanelViewController.m in Sources */,
 				ABF9517E168104C400C7043F /* JBSideViewController.m in Sources */,
 				ABF95181168125FD00C7043F /* JBMainViewController.m in Sources */,
 			);
