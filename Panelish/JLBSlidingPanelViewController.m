@@ -40,6 +40,7 @@ const CGFloat kJLBMinimumBackgroundScale = 0.95f;
 @property (nonatomic, getter = isScrollingAnimationEnabled) BOOL scrollingAnimationEnabled;
 @property (nonatomic, readwrite) JLBSlidingPanelState state;
 @property (nonatomic, weak) UIViewController <JLBSlidingPanelChildViewController> *visibleBackgroundViewController;
+@property (strong, nonatomic) NSMutableSet *disabledViewsInMain;
 
 @end
 
@@ -69,6 +70,7 @@ const CGFloat kJLBMinimumBackgroundScale = 0.95f;
     self.overlapEnabled = YES;
     self.state = JLBSlidingPanelCenterState;
     self.scrollingAnimationEnabled = YES;
+    self.disabledViewsInMain = [NSMutableSet set];
 }
 
 - (void)viewDidLoad
@@ -225,6 +227,20 @@ const CGFloat kJLBMinimumBackgroundScale = 0.95f;
             self.mainViewController.activePanelView = NO;
         } else {
             self.mainViewController.activePanelView = YES;
+        }
+        
+        if (!self.mainViewController.isActivePanelView) {
+            for (UIView *view in self.mainViewController.view.subviews) {
+                if (view.isUserInteractionEnabled) {
+                    [self.disabledViewsInMain addObject:view];
+                    view.userInteractionEnabled = NO;
+                }
+            }
+        } else {
+            for (UIView *view in self.disabledViewsInMain) {
+                view.userInteractionEnabled = YES;
+            }
+            [self.disabledViewsInMain removeAllObjects];
         }
     }
 }
