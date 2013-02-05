@@ -79,7 +79,8 @@ const CGFloat kJLBMinimumBackgroundScale = 0.95f;
     
     self.view.backgroundColor = [UIColor blackColor];
     
-    UIScrollView *scrollView = self.scrollView = [[JBPanelScrollView alloc] initWithFrame:self.view.bounds];
+    JBPanelScrollView *scrollView = [[JBPanelScrollView alloc] initWithFrame:self.view.bounds];
+    self.scrollView = scrollView;
     
     scrollView.contentSize = CGSizeMake(CGRectGetWidth(self.scrollView.bounds) * 3.0f, CGRectGetHeight(self.scrollView.bounds));
     scrollView.pagingEnabled = YES;
