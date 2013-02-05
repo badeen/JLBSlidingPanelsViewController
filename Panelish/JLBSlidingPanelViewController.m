@@ -90,6 +90,7 @@ const CGFloat kJLBMinimumBackgroundScale = 0.95f;
     
     UIGestureRecognizer *tapGR = [[UITapGestureRecognizer alloc] initWithTarget:self
                                                                          action:@selector(mainViewTapped:)];
+    tapGR.cancelsTouchesInView = NO;
     [self.scrollView addGestureRecognizer:tapGR];
 }
 
