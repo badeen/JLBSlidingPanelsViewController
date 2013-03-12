@@ -10,14 +10,9 @@
 
 #import "JLBSlidingPanelViewController.h"
 
-@interface JBSideViewController : UITableViewController <JLBSlidingPanelChildViewController>
+@interface JBSideViewController : UITableViewController
 
 @property (nonatomic) NSTextAlignment textAlignment;
-
-/*
- Properties for complying with the JBSlidingPanelChildViewController protocol
- */
 @property (nonatomic, weak) JLBSlidingPanelViewController *slidingPanelViewController;
-@property (nonatomic, getter = isActivePanelView) BOOL activePanelView;
 
 @end

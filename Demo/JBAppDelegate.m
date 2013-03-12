@@ -12,7 +12,6 @@
 
 #import "JLBSlidingPanelViewController.h"
 #import "JBSideViewController.h"
-#import "JBMainViewController.h"
 
 @implementation JBAppDelegate
 
@@ -30,7 +29,7 @@
     tableVC.title = @"Panelish 1";
     tableVC.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Left" style:UIBarButtonItemStyleBordered target:self action:@selector(showLeft:)];
     tableVC.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Right" style:UIBarButtonItemStyleBordered target:self action:@selector(showRight:)];
-    JBMainViewController *mainVC = [[JBMainViewController alloc] initWithRootViewController:tableVC];
+    UINavigationController *mainVC = [[UINavigationController alloc] initWithRootViewController:tableVC];
     self.viewController.mainViewController = mainVC;
     
     mainVC.view.layer.shadowPath = [[UIBezierPath bezierPathWithRect:mainVC.view.bounds] CGPath];
@@ -40,10 +39,12 @@
     mainVC.view.layer.shadowOpacity = 1.0f;
     
     JBSideViewController *leftVC = [[JBSideViewController alloc] initWithStyle:UITableViewStylePlain];
+    leftVC.slidingPanelViewController = self.viewController;
     leftVC.textAlignment = NSTextAlignmentLeft;
     self.viewController.leftViewController = leftVC;
     
     JBSideViewController *rightVC = [[JBSideViewController alloc] initWithStyle:UITableViewStylePlain];
+    rightVC.slidingPanelViewController = self.viewController;
     rightVC.textAlignment = NSTextAlignmentRight;
     self.viewController.rightViewController = rightVC;
     

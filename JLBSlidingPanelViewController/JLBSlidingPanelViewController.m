@@ -39,7 +39,7 @@ const CGFloat kJLBMinimumBackgroundScale = 0.95f;
 @property (nonatomic) BOOL overlapEnabled;
 @property (nonatomic, getter = isScrollingAnimationEnabled) BOOL scrollingAnimationEnabled;
 @property (nonatomic, readwrite) enum JLBSlidingPanelState state;
-@property (nonatomic, weak) UIViewController <JLBSlidingPanelChildViewController> *visibleBackgroundViewController;
+@property (nonatomic, weak) UIViewController *visibleBackgroundViewController;
 @property (strong, nonatomic) NSMutableSet *disabledViewsInMain;
 
 @end
@@ -126,12 +126,12 @@ const CGFloat kJLBMinimumBackgroundScale = 0.95f;
     return self.shouldAutomaticallyForwardAppearanceMethods && self.shouldAutomaticallyForwardRotationMethods;
 }
 
-- (void)setMainViewController:(UIViewController<JLBSlidingPanelChildViewController> *)mainViewController
+- (void)setMainViewController:(UIViewController *)mainViewController
 {
     [self setMainViewController:mainViewController animated:NO];
 }
 
-- (void)setMainViewController:(UIViewController<JLBSlidingPanelChildViewController> *)mainViewController animated:(BOOL)animated
+- (void)setMainViewController:(UIViewController *)mainViewController animated:(BOOL)animated
 {
     if (_mainViewController != mainViewController) {
         self.view.userInteractionEnabled = NO;
@@ -141,7 +141,7 @@ const CGFloat kJLBMinimumBackgroundScale = 0.95f;
         
         _mainViewController = mainViewController;
         
-        UIViewController <JLBSlidingPanelChildViewController> *toVC = _mainViewController;
+        UIViewController *toVC = _mainViewController;
         if (toVC) {
             [self addChildViewController:toVC];
             CGRect centeredRect = CGRectMake(CGRectGetWidth(self.scrollView.bounds),
@@ -183,19 +183,7 @@ const CGFloat kJLBMinimumBackgroundScale = 0.95f;
     }
 }
 
-- (void)setLeftViewController:(UIViewController<JLBSlidingPanelChildViewController> *)leftViewController
-{
-    _leftViewController = leftViewController;
-    _leftViewController.slidingPanelViewController = self;
-}
-
-- (void)setRightViewController:(UIViewController<JLBSlidingPanelChildViewController> *)rightViewController
-{
-    _rightViewController = rightViewController;
-    _rightViewController.slidingPanelViewController = self;
-}
-
-- (void)setVisibleBackgroundViewController:(UIViewController<JLBSlidingPanelChildViewController> *)visibleBackgroundViewController
+- (void)setVisibleBackgroundViewController:(UIViewController *)visibleBackgroundViewController
 {
     if (_visibleBackgroundViewController != visibleBackgroundViewController) {
         
@@ -207,7 +195,6 @@ const CGFloat kJLBMinimumBackgroundScale = 0.95f;
             [_visibleBackgroundViewController.view removeFromSuperview];
             [_visibleBackgroundViewController viewDidDisappear:NO];
             [_visibleBackgroundViewController removeFromParentViewController];
-            _visibleBackgroundViewController.activePanelView = NO;
         }
         
         _visibleBackgroundViewController = visibleBackgroundViewController;
@@ -225,13 +212,13 @@ const CGFloat kJLBMinimumBackgroundScale = 0.95f;
             _visibleBackgroundViewController.view.frame = rect;
             [UIView setAnimationsEnabled:YES];
             [_visibleBackgroundViewController didMoveToParentViewController:self];
-            _visibleBackgroundViewController.activePanelView = YES;
-            self.mainViewController.activePanelView = NO;
+            _visibleBackgroundViewController.view.userInteractionEnabled = YES;
+            self.mainViewController.view.userInteractionEnabled = NO;
         } else {
-            self.mainViewController.activePanelView = YES;
+            self.mainViewController.view.userInteractionEnabled = YES;
         }
         
-        if (!self.mainViewController.isActivePanelView) {
+        if (!self.mainViewController.view.userInteractionEnabled) {
             for (UIView *view in self.mainViewController.view.subviews) {
                 if (view.isUserInteractionEnabled) {
                     [self.disabledViewsInMain addObject:view];

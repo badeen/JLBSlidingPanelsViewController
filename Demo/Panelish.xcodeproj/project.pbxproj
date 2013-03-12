@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		73D2640616EFC0190039600A /* JBAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 73D263FE16EFC0190039600A /* JBAppDelegate.m */; };
-		73D2640716EFC0190039600A /* JBMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 73D2640016EFC0190039600A /* JBMainViewController.m */; };
 		73D2640816EFC0190039600A /* JBSideViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 73D2640216EFC0190039600A /* JBSideViewController.m */; };
 		73D2640916EFC0190039600A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 73D2640316EFC0190039600A /* main.m */; };
 		73D2640E16EFC0490039600A /* JLBSlidingPanelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 73D2640D16EFC0490039600A /* JLBSlidingPanelViewController.m */; };
@@ -24,8 +23,6 @@
 /* Begin PBXFileReference section */
 		73D263FD16EFC0190039600A /* JBAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JBAppDelegate.h; sourceTree = "<group>"; };
 		73D263FE16EFC0190039600A /* JBAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JBAppDelegate.m; sourceTree = "<group>"; };
-		73D263FF16EFC0190039600A /* JBMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JBMainViewController.h; sourceTree = "<group>"; };
-		73D2640016EFC0190039600A /* JBMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JBMainViewController.m; sourceTree = "<group>"; };
 		73D2640116EFC0190039600A /* JBSideViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JBSideViewController.h; sourceTree = "<group>"; };
 		73D2640216EFC0190039600A /* JBSideViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JBSideViewController.m; sourceTree = "<group>"; };
 		73D2640316EFC0190039600A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -62,8 +59,6 @@
 			children = (
 				73D263FD16EFC0190039600A /* JBAppDelegate.h */,
 				73D263FE16EFC0190039600A /* JBAppDelegate.m */,
-				73D263FF16EFC0190039600A /* JBMainViewController.h */,
-				73D2640016EFC0190039600A /* JBMainViewController.m */,
 				73D2640116EFC0190039600A /* JBSideViewController.h */,
 				73D2640216EFC0190039600A /* JBSideViewController.m */,
 				73D2640316EFC0190039600A /* main.m */,
@@ -180,7 +175,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				73D2640616EFC0190039600A /* JBAppDelegate.m in Sources */,
-				73D2640716EFC0190039600A /* JBMainViewController.m in Sources */,
 				73D2640816EFC0190039600A /* JBSideViewController.m in Sources */,
 				73D2640916EFC0190039600A /* main.m in Sources */,
 				73D2640E16EFC0490039600A /* JLBSlidingPanelViewController.m in Sources */,

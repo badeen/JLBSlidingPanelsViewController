@@ -8,7 +8,6 @@
 
 #import "JBSideViewController.h"
 
-#import "JBMainViewController.h"
 #import <QuartzCore/QuartzCore.h>
 
 @implementation JBSideViewController
@@ -69,7 +68,7 @@
         vc.title = [NSString stringWithFormat:@"Item %i", indexPath.row + 1];
         vc.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStyleBordered target:self action:@selector(close:)];
         
-        JBMainViewController *presentedVC = [[JBMainViewController alloc] initWithRootViewController:vc];
+        UINavigationController *presentedVC = [[UINavigationController alloc] initWithRootViewController:vc];
         [self.slidingPanelViewController presentViewController:presentedVC animated:NO completion:^{
             presentedVC.view.transform = CGAffineTransformMakeTranslation(CGRectGetWidth(self.slidingPanelViewController.view.frame), 0.0f);
             presentedVC.view.layer.shadowPath = [[UIBezierPath bezierPathWithRect:presentedVC.view.bounds] CGPath];
@@ -94,7 +93,7 @@
             tableVC.title = vcTitle;
             tableVC.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Left" style:UIBarButtonItemStyleBordered target:self action:@selector(showLeft:)];
             tableVC.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Right" style:UIBarButtonItemStyleBordered target:self action:@selector(showRight:)];
-            JBMainViewController *mainVC = [[JBMainViewController alloc] initWithRootViewController:tableVC];
+            UINavigationController *mainVC = [[UINavigationController alloc] initWithRootViewController:tableVC];
             
             mainVC.view.layer.shadowPath = [[UIBezierPath bezierPathWithRect:mainVC.view.bounds] CGPath];
             mainVC.view.layer.shadowColor = [[UIColor blackColor] CGColor];
