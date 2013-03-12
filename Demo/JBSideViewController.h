@@ -17,7 +17,7 @@
 /*
  Properties for complying with the JBSlidingPanelChildViewController protocol
  */
-@property (nonatomic, strong) JLBSlidingPanelViewController *slidingPanelViewController;
+@property (nonatomic, weak) JLBSlidingPanelViewController *slidingPanelViewController;
 @property (nonatomic, getter = isActivePanelView) BOOL activePanelView;
 
 @end

@@ -38,7 +38,7 @@ const CGFloat kJLBMinimumBackgroundScale = 0.95f;
 @property (nonatomic, weak) UIView *mainView;
 @property (nonatomic) BOOL overlapEnabled;
 @property (nonatomic, getter = isScrollingAnimationEnabled) BOOL scrollingAnimationEnabled;
-@property (nonatomic, readwrite) JLBSlidingPanelState state;
+@property (nonatomic, readwrite) enum JLBSlidingPanelState state;
 @property (nonatomic, weak) UIViewController <JLBSlidingPanelChildViewController> *visibleBackgroundViewController;
 @property (strong, nonatomic) NSMutableSet *disabledViewsInMain;
 

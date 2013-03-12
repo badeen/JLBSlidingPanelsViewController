@@ -8,11 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
-typedef enum {
-    JLBSlidingPanelLeftState = 0,
-    JLBSlidingPanelCenterState = 1,
-    JLBSlidingPanelRightState = 2
-} JLBSlidingPanelState;
+NS_ENUM(NSUInteger, JLBSlidingPanelState) {
+    JLBSlidingPanelLeftState,
+    JLBSlidingPanelCenterState,
+    JLBSlidingPanelRightState
+};
 
 @protocol JLBSlidingPanelChildViewController;
 
@@ -22,7 +22,7 @@ typedef enum {
 @property (nonatomic, strong) UIViewController <JLBSlidingPanelChildViewController> *leftViewController;
 @property (nonatomic, strong) UIViewController <JLBSlidingPanelChildViewController> *rightViewController;
 @property (nonatomic) CGFloat overlapWidth;
-@property (nonatomic, readonly) JLBSlidingPanelState state;
+@property (nonatomic, readonly) enum JLBSlidingPanelState state;
 
 - (void)setMainViewController:(UIViewController<JLBSlidingPanelChildViewController> *)mainViewController animated:(BOOL)animated;
 - (IBAction)revealLeft:(id)sender;
@@ -33,7 +33,7 @@ typedef enum {
 
 @protocol JLBSlidingPanelChildViewController <NSObject>
 
-@property (nonatomic, strong) JLBSlidingPanelViewController *slidingPanelViewController;
+@property (nonatomic, weak) JLBSlidingPanelViewController *slidingPanelViewController;
 @property (nonatomic, getter = isActivePanelView) BOOL activePanelView;
 
 @end
