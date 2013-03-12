@@ -10,9 +10,18 @@
 
 #import "JLBSlidingPanelViewController.h"
 
+@protocol JBSideViewControllerDelegate;
+
 @interface JBSideViewController : UITableViewController
 
-@property (nonatomic) NSTextAlignment textAlignment;
+@property (nonatomic, weak) id<JBSideViewControllerDelegate> delegate;
 @property (nonatomic, weak) JLBSlidingPanelViewController *slidingPanelViewController;
+@property (nonatomic) NSTextAlignment textAlignment;
+
+@end
+
+@protocol JBSideViewControllerDelegate <NSObject>
+
+- (void)sideViewController:(JBSideViewController *)sideViewController didSelectCellWithText:(NSString *)text;
 
 @end

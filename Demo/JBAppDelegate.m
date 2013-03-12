@@ -13,48 +13,60 @@
 #import "JLBSlidingPanelViewController.h"
 #import "JBSideViewController.h"
 
+@interface JBAppDelegate()
+<UIApplicationDelegate, JBSideViewControllerDelegate>
+@end
+
 @implementation JBAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    // Override point for customization after application launch.
-    self.window.backgroundColor = [UIColor blackColor];
-    [self.window makeKeyAndVisible];
     
-    self.viewController  = [[JLBSlidingPanelViewController alloc] init];
-    self.window.rootViewController = self.viewController;
+    JLBSlidingPanelViewController *viewController = [[JLBSlidingPanelViewController alloc] init];
+    self.window.rootViewController = viewController;
     
     UITableViewController *tableVC = [[UITableViewController alloc] initWithStyle:UITableViewStyleGrouped];
     tableVC.title = @"Panelish 1";
     tableVC.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Left" style:UIBarButtonItemStyleBordered target:self action:@selector(showLeft:)];
     tableVC.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Right" style:UIBarButtonItemStyleBordered target:self action:@selector(showRight:)];
     UINavigationController *mainVC = [[UINavigationController alloc] initWithRootViewController:tableVC];
-    self.viewController.mainViewController = mainVC;
+    viewController.mainViewController = mainVC;
     
     JBSideViewController *leftVC = [[JBSideViewController alloc] initWithStyle:UITableViewStylePlain];
-    leftVC.slidingPanelViewController = self.viewController;
     leftVC.textAlignment = NSTextAlignmentLeft;
-    self.viewController.leftViewController = leftVC;
+    leftVC.delegate = self;    
+    viewController.leftViewController = leftVC;
     
     JBSideViewController *rightVC = [[JBSideViewController alloc] initWithStyle:UITableViewStylePlain];
-    rightVC.slidingPanelViewController = self.viewController;
     rightVC.textAlignment = NSTextAlignmentRight;
-    self.viewController.rightViewController = rightVC;
-    
+    rightVC.delegate = self;
+    viewController.rightViewController = rightVC;
+
+    [self.window makeKeyAndVisible];
+
     return YES;
+}
+
+#pragma mark - JBSideViewControllerDelegate
+
+- (void)sideViewController:(JBSideViewController *)sideViewController didSelectCellWithText:(NSString *)text{
+    JLBSlidingPanelViewController *viewController = (JLBSlidingPanelViewController *)self.window.rootViewController;
+    [[(UINavigationController *)viewController.mainViewController visibleViewController] setTitle:text];
+    [viewController hideSides:nil];
 }
 
 #pragma mark - Actions
 
 - (void)showLeft:(id)sender
 {
-    switch (self.viewController.state) {
+    JLBSlidingPanelViewController *viewController = (JLBSlidingPanelViewController *)self.window.rootViewController;
+    switch (viewController.state) {
         case JLBSlidingPanelLeftState:
-            [self.viewController hideSides:sender];
+            [viewController hideSides:sender];
             break;
         case JLBSlidingPanelCenterState:
-            [self.viewController revealLeft:sender];
+            [viewController revealLeft:sender];
         default:
             break;
     }
@@ -62,12 +74,13 @@
 
 - (void)showRight:(id)sender
 {
-    switch (self.viewController.state) {
+    JLBSlidingPanelViewController *viewController = (JLBSlidingPanelViewController *)self.window.rootViewController;    
+    switch (viewController.state) {
         case JLBSlidingPanelRightState:
-            [self.viewController hideSides:sender];
+            [viewController hideSides:sender];
             break;
         case JLBSlidingPanelCenterState:
-            [self.viewController revealRight:sender];
+            [viewController revealRight:sender];
         default:
             break;
     }
