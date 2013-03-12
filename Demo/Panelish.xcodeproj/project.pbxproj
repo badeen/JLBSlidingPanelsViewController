@@ -12,6 +12,9 @@
 		73D2640816EFC0190039600A /* JBSideViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 73D2640216EFC0190039600A /* JBSideViewController.m */; };
 		73D2640916EFC0190039600A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 73D2640316EFC0190039600A /* main.m */; };
 		73D2640E16EFC0490039600A /* JLBSlidingPanelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 73D2640D16EFC0490039600A /* JLBSlidingPanelViewController.m */; };
+		73D2641216EFC6700039600A /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 73D2640F16EFC6700039600A /* Default-568h@2x.png */; };
+		73D2641316EFC6700039600A /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 73D2641016EFC6700039600A /* Default.png */; };
+		73D2641416EFC6700039600A /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 73D2641116EFC6700039600A /* Default@2x.png */; };
 		ABF8B604167F9FC500E96B94 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ABF8B603167F9FC500E96B94 /* UIKit.framework */; };
 		ABF8B606167F9FC500E96B94 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ABF8B605167F9FC500E96B94 /* Foundation.framework */; };
 		ABF8B608167F9FC500E96B94 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ABF8B607167F9FC500E96B94 /* CoreGraphics.framework */; };
@@ -29,6 +32,9 @@
 		73D2640516EFC0190039600A /* Panelish-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Panelish-Prefix.pch"; sourceTree = "<group>"; };
 		73D2640C16EFC0490039600A /* JLBSlidingPanelViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JLBSlidingPanelViewController.h; sourceTree = "<group>"; };
 		73D2640D16EFC0490039600A /* JLBSlidingPanelViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JLBSlidingPanelViewController.m; sourceTree = "<group>"; };
+		73D2640F16EFC6700039600A /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		73D2641016EFC6700039600A /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
+		73D2641116EFC6700039600A /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		ABF8B5FF167F9FC500E96B94 /* Panelish.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Panelish.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ABF8B603167F9FC500E96B94 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		ABF8B605167F9FC500E96B94 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -62,6 +68,9 @@
 				73D2640216EFC0190039600A /* JBSideViewController.m */,
 				73D2640316EFC0190039600A /* main.m */,
 				73D2640516EFC0190039600A /* Panelish-Prefix.pch */,
+				73D2640F16EFC6700039600A /* Default-568h@2x.png */,
+				73D2641016EFC6700039600A /* Default.png */,
+				73D2641116EFC6700039600A /* Default@2x.png */,
 			);
 			name = Panelish;
 			sourceTree = "<group>";
@@ -157,6 +166,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				73D2641216EFC6700039600A /* Default-568h@2x.png in Resources */,
+				73D2641316EFC6700039600A /* Default.png in Resources */,
+				73D2641416EFC6700039600A /* Default@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
