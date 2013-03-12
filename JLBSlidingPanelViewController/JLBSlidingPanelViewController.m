@@ -94,10 +94,6 @@ const CGFloat kJLBMinimumBackgroundScale = 0.95f;
     [self.scrollView addGestureRecognizer:tapGR];
 }
 
-- (void)viewDidAppear:(BOOL)animated{
-    [super viewDidAppear:animated];
-}
-
 - (void)viewWillLayoutSubviews
 {
     [super viewWillLayoutSubviews];
@@ -116,14 +112,15 @@ const CGFloat kJLBMinimumBackgroundScale = 0.95f;
                 self.mainViewController.view.transform = CGAffineTransformMakeTranslation(-self.overlapWidth, 0.0f);
                 break;
             case JLBSlidingPanelCenterState:
-                self.mainViewController.view.transform = CGAffineTransformIdentity;
-                self.scrollView.contentOffset = CGPointMake(CGRectGetWidth(self.scrollView.frame), 0.0f);                
+                self.scrollView.contentOffset = CGPointMake(CGRectGetWidth(self.scrollView.frame), 0.0f);
+                self.mainViewController.view.transform = CGAffineTransformIdentity;                
                 break;
             case JLBSlidingPanelRightState:
-                self.mainViewController.view.transform = CGAffineTransformMakeTranslation(self.overlapWidth, 0.0f);
                 self.scrollView.contentOffset = CGPointMake(CGRectGetWidth(self.scrollView.frame) * 2.0f, 0.0f);
+                self.mainViewController.view.transform = CGAffineTransformMakeTranslation(self.overlapWidth, 0.0f);                
                 break;
         }
+        self.mainViewController.view.layer.shadowPath = [[UIBezierPath bezierPathWithRect:self.mainViewController.view.bounds] CGPath];
     }
 }
 
@@ -155,6 +152,13 @@ const CGFloat kJLBMinimumBackgroundScale = 0.95f;
                                              CGRectGetWidth(self.scrollView.bounds),
                                              CGRectGetHeight(self.scrollView.bounds));
             toVC.view.frame = centeredRect;
+
+            toVC.view.layer.shadowPath = [[UIBezierPath bezierPathWithRect:toVC.view.bounds] CGPath];
+            toVC.view.layer.shadowColor = [[UIColor blackColor] CGColor];
+            toVC.view.layer.shadowOffset = CGSizeZero;
+            toVC.view.layer.shadowRadius = 8.0f;
+            toVC.view.layer.shadowOpacity = 1.0f;
+
             [toVC viewWillAppear:animated];
         }
             

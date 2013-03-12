@@ -32,12 +32,6 @@
     UINavigationController *mainVC = [[UINavigationController alloc] initWithRootViewController:tableVC];
     self.viewController.mainViewController = mainVC;
     
-    mainVC.view.layer.shadowPath = [[UIBezierPath bezierPathWithRect:mainVC.view.bounds] CGPath];
-    mainVC.view.layer.shadowColor = [[UIColor blackColor] CGColor];
-    mainVC.view.layer.shadowOffset = CGSizeZero;
-    mainVC.view.layer.shadowRadius = 8.0f;
-    mainVC.view.layer.shadowOpacity = 1.0f;
-    
     JBSideViewController *leftVC = [[JBSideViewController alloc] initWithStyle:UITableViewStylePlain];
     leftVC.slidingPanelViewController = self.viewController;
     leftVC.textAlignment = NSTextAlignmentLeft;
