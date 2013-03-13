@@ -101,24 +101,23 @@ const CGFloat kJLBMinimumBackgroundScale = 0.95f;
     if(!CGRectEqualToRect(self.scrollView.frame, self.view.bounds)){
         self.scrollView.frame = self.view.bounds;
         self.scrollView.contentSize = CGSizeMake(CGRectGetWidth(self.scrollView.bounds) * 3.0f, CGRectGetHeight(self.scrollView.bounds));
-        CGRect centeredRect = CGRectMake(CGRectGetWidth(self.scrollView.bounds),
-                                         0.0f,
-                                         CGRectGetWidth(self.scrollView.bounds),
-                                         CGRectGetHeight(self.scrollView.bounds));
+        CGRect centeredRect = self.scrollView.bounds;
+        centeredRect.origin.x = CGRectGetWidth(self.scrollView.bounds);
         self.mainViewController.view.frame = centeredRect;
         switch (self.state) {
-            case JLBSlidingPanelLeftState:
+            case JLBSlidingPanelLeftState: {
                 self.scrollView.contentOffset = CGPointZero;
                 self.mainViewController.view.transform = CGAffineTransformMakeTranslation(-self.overlapWidth, 0.0f);
                 break;
-            case JLBSlidingPanelCenterState:
+            } case JLBSlidingPanelCenterState: {
                 self.scrollView.contentOffset = CGPointMake(CGRectGetWidth(self.scrollView.frame), 0.0f);
-                self.mainViewController.view.transform = CGAffineTransformIdentity;                
+                self.mainViewController.view.transform = CGAffineTransformIdentity;
                 break;
-            case JLBSlidingPanelRightState:
+            } case JLBSlidingPanelRightState:{
                 self.scrollView.contentOffset = CGPointMake(CGRectGetWidth(self.scrollView.frame) * 2.0f, 0.0f);
                 self.mainViewController.view.transform = CGAffineTransformMakeTranslation(self.overlapWidth, 0.0f);                
                 break;
+            }
         }
         self.mainViewController.view.layer.shadowPath = [[UIBezierPath bezierPathWithRect:self.mainViewController.view.bounds] CGPath];
     }
@@ -147,10 +146,8 @@ const CGFloat kJLBMinimumBackgroundScale = 0.95f;
         UIViewController *toVC = _mainViewController;
         if (toVC) {
             [self addChildViewController:toVC];
-            CGRect centeredRect = CGRectMake(CGRectGetWidth(self.scrollView.bounds),
-                                             0.0f,
-                                             CGRectGetWidth(self.scrollView.bounds),
-                                             CGRectGetHeight(self.scrollView.bounds));
+            CGRect centeredRect = self.scrollView.bounds;
+            centeredRect.origin.x = CGRectGetWidth(self.scrollView.bounds);
             toVC.view.frame = centeredRect;
 
             toVC.view.layer.shadowPath = [[UIBezierPath bezierPathWithRect:toVC.view.bounds] CGPath];
@@ -215,10 +212,7 @@ const CGFloat kJLBMinimumBackgroundScale = 0.95f;
             [self.view addSubview:_visibleBackgroundViewController.view];
             [self.view sendSubviewToBack:_visibleBackgroundViewController.view];
             [UIView setAnimationsEnabled:NO];
-            CGRect rect = CGRectMake(0.0f,
-                                     0.0f,
-                                     CGRectGetWidth(self.view.bounds),
-                                     CGRectGetHeight(self.view.bounds));
+            CGRect rect = (CGRect){CGPointZero, self.view.bounds.size};
             _visibleBackgroundViewController.view.frame = rect;
             [UIView setAnimationsEnabled:YES];
             [_visibleBackgroundViewController didMoveToParentViewController:self];
