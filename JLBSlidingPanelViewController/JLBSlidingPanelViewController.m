@@ -125,26 +125,6 @@ const CGFloat kJLBMinimumBackgroundScale = 0.95f;
     }
 }
 
-- (void)dealloc
-{
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
-}
-
-- (void)setState:(enum JLBSlidingPanelState)state{
-    switch (state) {
-        case JLBSlidingPanelStateLeft:
-            NSLog(@"Left");
-            break;
-        case JLBSlidingPanelStateCenter:
-            NSLog(@"Center");
-            break;
-        case JLBSlidingPanelStateRight:
-            NSLog(@"Right");
-            break;
-    }
-    _state = state;
-}
-
 - (void)setMainViewController:(UIViewController *)mainViewController
 {
     [self setMainViewController:mainViewController animated:NO];
