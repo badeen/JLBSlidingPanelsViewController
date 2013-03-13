@@ -13,7 +13,7 @@
 #import "JLBSlidingPanelViewController.h"
 #import "JBSideViewController.h"
 
-@interface JBAppDelegate()
+@interface JBAppDelegate ()
 <UIApplicationDelegate, JBSideViewControllerDelegate>
 @end
 
