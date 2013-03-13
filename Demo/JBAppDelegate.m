@@ -62,10 +62,10 @@
 {
     JLBSlidingPanelViewController *viewController = (JLBSlidingPanelViewController *)self.window.rootViewController;
     switch (viewController.state) {
-        case JLBSlidingPanelLeftState:
+        case JLBSlidingPanelStateLeft:
             [viewController hideSides:sender];
             break;
-        case JLBSlidingPanelCenterState:
+        case JLBSlidingPanelStateCenter:
             [viewController revealLeft:sender];
         default:
             break;
@@ -76,10 +76,10 @@
 {
     JLBSlidingPanelViewController *viewController = (JLBSlidingPanelViewController *)self.window.rootViewController;    
     switch (viewController.state) {
-        case JLBSlidingPanelRightState:
+        case JLBSlidingPanelStateRight:
             [viewController hideSides:sender];
             break;
-        case JLBSlidingPanelCenterState:
+        case JLBSlidingPanelStateCenter:
             [viewController revealRight:sender];
         default:
             break;

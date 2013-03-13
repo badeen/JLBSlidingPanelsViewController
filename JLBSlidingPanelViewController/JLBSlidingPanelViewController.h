@@ -9,9 +9,9 @@
 #import <UIKit/UIKit.h>
 
 NS_ENUM(NSUInteger, JLBSlidingPanelState) {
-    JLBSlidingPanelLeftState,
-    JLBSlidingPanelCenterState,
-    JLBSlidingPanelRightState
+    JLBSlidingPanelStateLeft,
+    JLBSlidingPanelStateCenter,
+    JLBSlidingPanelStateRight
 };
 
 @interface JLBSlidingPanelViewController : UIViewController
