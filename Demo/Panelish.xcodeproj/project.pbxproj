@@ -7,42 +7,36 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		73D2640616EFC0190039600A /* JBAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 73D263FE16EFC0190039600A /* JBAppDelegate.m */; };
+		73D2640816EFC0190039600A /* JBSideViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 73D2640216EFC0190039600A /* JBSideViewController.m */; };
+		73D2640916EFC0190039600A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 73D2640316EFC0190039600A /* main.m */; };
+		73D2640E16EFC0490039600A /* JLBSlidingPanelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 73D2640D16EFC0490039600A /* JLBSlidingPanelViewController.m */; };
+		73D2641216EFC6700039600A /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 73D2640F16EFC6700039600A /* Default-568h@2x.png */; };
+		73D2641316EFC6700039600A /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 73D2641016EFC6700039600A /* Default.png */; };
+		73D2641416EFC6700039600A /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 73D2641116EFC6700039600A /* Default@2x.png */; };
 		ABF8B604167F9FC500E96B94 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ABF8B603167F9FC500E96B94 /* UIKit.framework */; };
 		ABF8B606167F9FC500E96B94 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ABF8B605167F9FC500E96B94 /* Foundation.framework */; };
 		ABF8B608167F9FC500E96B94 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ABF8B607167F9FC500E96B94 /* CoreGraphics.framework */; };
-		ABF8B60E167F9FC500E96B94 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = ABF8B60C167F9FC500E96B94 /* InfoPlist.strings */; };
-		ABF8B610167F9FC500E96B94 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = ABF8B60F167F9FC500E96B94 /* main.m */; };
-		ABF8B614167F9FC500E96B94 /* JBAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = ABF8B613167F9FC500E96B94 /* JBAppDelegate.m */; };
-		ABF8B616167F9FC500E96B94 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = ABF8B615167F9FC500E96B94 /* Default.png */; };
-		ABF8B618167F9FC500E96B94 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ABF8B617167F9FC500E96B94 /* Default@2x.png */; };
-		ABF8B61A167F9FC500E96B94 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ABF8B619167F9FC500E96B94 /* Default-568h@2x.png */; };
-		ABF8B622167FA00000E96B94 /* JLBSlidingPanelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ABF8B621167FA00000E96B94 /* JLBSlidingPanelViewController.m */; };
 		ABF8B624167FB56A00E96B94 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ABF8B623167FB56A00E96B94 /* QuartzCore.framework */; };
-		ABF9517E168104C400C7043F /* JBSideViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ABF9517D168104C400C7043F /* JBSideViewController.m */; };
-		ABF95181168125FD00C7043F /* JBMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ABF95180168125FD00C7043F /* JBMainViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		73D263FD16EFC0190039600A /* JBAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JBAppDelegate.h; sourceTree = "<group>"; };
+		73D263FE16EFC0190039600A /* JBAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JBAppDelegate.m; sourceTree = "<group>"; };
+		73D2640116EFC0190039600A /* JBSideViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JBSideViewController.h; sourceTree = "<group>"; };
+		73D2640216EFC0190039600A /* JBSideViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JBSideViewController.m; sourceTree = "<group>"; };
+		73D2640316EFC0190039600A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		73D2640516EFC0190039600A /* Panelish-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Panelish-Prefix.pch"; sourceTree = "<group>"; };
+		73D2640C16EFC0490039600A /* JLBSlidingPanelViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JLBSlidingPanelViewController.h; sourceTree = "<group>"; };
+		73D2640D16EFC0490039600A /* JLBSlidingPanelViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JLBSlidingPanelViewController.m; sourceTree = "<group>"; };
+		73D2640F16EFC6700039600A /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		73D2641016EFC6700039600A /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
+		73D2641116EFC6700039600A /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		ABF8B5FF167F9FC500E96B94 /* Panelish.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Panelish.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ABF8B603167F9FC500E96B94 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		ABF8B605167F9FC500E96B94 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		ABF8B607167F9FC500E96B94 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		ABF8B60B167F9FC500E96B94 /* Panelish-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Panelish-Info.plist"; sourceTree = "<group>"; };
-		ABF8B60D167F9FC500E96B94 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		ABF8B60F167F9FC500E96B94 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		ABF8B611167F9FC500E96B94 /* Panelish-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Panelish-Prefix.pch"; sourceTree = "<group>"; };
-		ABF8B612167F9FC500E96B94 /* JBAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JBAppDelegate.h; sourceTree = "<group>"; };
-		ABF8B613167F9FC500E96B94 /* JBAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JBAppDelegate.m; sourceTree = "<group>"; };
-		ABF8B615167F9FC500E96B94 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
-		ABF8B617167F9FC500E96B94 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
-		ABF8B619167F9FC500E96B94 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
-		ABF8B620167FA00000E96B94 /* JLBSlidingPanelViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JLBSlidingPanelViewController.h; sourceTree = "<group>"; };
-		ABF8B621167FA00000E96B94 /* JLBSlidingPanelViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JLBSlidingPanelViewController.m; sourceTree = "<group>"; };
 		ABF8B623167FB56A00E96B94 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
-		ABF9517C168104C400C7043F /* JBSideViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JBSideViewController.h; sourceTree = "<group>"; };
-		ABF9517D168104C400C7043F /* JBSideViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JBSideViewController.m; sourceTree = "<group>"; };
-		ABF9517F168125FD00C7043F /* JBMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JBMainViewController.h; sourceTree = "<group>"; };
-		ABF95180168125FD00C7043F /* JBMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JBMainViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,10 +54,37 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		73D263FC16EFC0060039600A /* Panelish */ = {
+			isa = PBXGroup;
+			children = (
+				73D263FD16EFC0190039600A /* JBAppDelegate.h */,
+				73D263FE16EFC0190039600A /* JBAppDelegate.m */,
+				73D2640116EFC0190039600A /* JBSideViewController.h */,
+				73D2640216EFC0190039600A /* JBSideViewController.m */,
+				73D2640316EFC0190039600A /* main.m */,
+				73D2640516EFC0190039600A /* Panelish-Prefix.pch */,
+				73D2640F16EFC6700039600A /* Default-568h@2x.png */,
+				73D2641016EFC6700039600A /* Default.png */,
+				73D2641116EFC6700039600A /* Default@2x.png */,
+			);
+			name = Panelish;
+			sourceTree = "<group>";
+		};
+		73D2640B16EFC0490039600A /* JLBSlidingPanelViewController */ = {
+			isa = PBXGroup;
+			children = (
+				73D2640C16EFC0490039600A /* JLBSlidingPanelViewController.h */,
+				73D2640D16EFC0490039600A /* JLBSlidingPanelViewController.m */,
+			);
+			name = JLBSlidingPanelViewController;
+			path = ../JLBSlidingPanelViewController;
+			sourceTree = "<group>";
+		};
 		ABF8B5F4167F9FC500E96B94 = {
 			isa = PBXGroup;
 			children = (
-				ABF8B609167F9FC500E96B94 /* Panelish */,
+				73D263FC16EFC0060039600A /* Panelish */,
+				73D2640B16EFC0490039600A /* JLBSlidingPanelViewController */,
 				ABF8B602167F9FC500E96B94 /* Frameworks */,
 				ABF8B600167F9FC500E96B94 /* Products */,
 			);
@@ -86,36 +107,6 @@
 				ABF8B607167F9FC500E96B94 /* CoreGraphics.framework */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		ABF8B609167F9FC500E96B94 /* Panelish */ = {
-			isa = PBXGroup;
-			children = (
-				ABF8B612167F9FC500E96B94 /* JBAppDelegate.h */,
-				ABF8B613167F9FC500E96B94 /* JBAppDelegate.m */,
-				ABF8B620167FA00000E96B94 /* JLBSlidingPanelViewController.h */,
-				ABF8B621167FA00000E96B94 /* JLBSlidingPanelViewController.m */,
-				ABF9517F168125FD00C7043F /* JBMainViewController.h */,
-				ABF95180168125FD00C7043F /* JBMainViewController.m */,
-				ABF9517C168104C400C7043F /* JBSideViewController.h */,
-				ABF9517D168104C400C7043F /* JBSideViewController.m */,
-				ABF8B60A167F9FC500E96B94 /* Supporting Files */,
-			);
-			path = Panelish;
-			sourceTree = "<group>";
-		};
-		ABF8B60A167F9FC500E96B94 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				ABF8B60B167F9FC500E96B94 /* Panelish-Info.plist */,
-				ABF8B60C167F9FC500E96B94 /* InfoPlist.strings */,
-				ABF8B60F167F9FC500E96B94 /* main.m */,
-				ABF8B611167F9FC500E96B94 /* Panelish-Prefix.pch */,
-				ABF8B615167F9FC500E96B94 /* Default.png */,
-				ABF8B617167F9FC500E96B94 /* Default@2x.png */,
-				ABF8B619167F9FC500E96B94 /* Default-568h@2x.png */,
-			);
-			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -170,10 +161,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				ABF8B60E167F9FC500E96B94 /* InfoPlist.strings in Resources */,
-				ABF8B616167F9FC500E96B94 /* Default.png in Resources */,
-				ABF8B618167F9FC500E96B94 /* Default@2x.png in Resources */,
-				ABF8B61A167F9FC500E96B94 /* Default-568h@2x.png in Resources */,
+				73D2641216EFC6700039600A /* Default-568h@2x.png in Resources */,
+				73D2641316EFC6700039600A /* Default.png in Resources */,
+				73D2641416EFC6700039600A /* Default@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -184,26 +174,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				ABF8B610167F9FC500E96B94 /* main.m in Sources */,
-				ABF8B614167F9FC500E96B94 /* JBAppDelegate.m in Sources */,
-				ABF8B622167FA00000E96B94 /* JLBSlidingPanelViewController.m in Sources */,
-				ABF9517E168104C400C7043F /* JBSideViewController.m in Sources */,
-				ABF95181168125FD00C7043F /* JBMainViewController.m in Sources */,
+				73D2640616EFC0190039600A /* JBAppDelegate.m in Sources */,
+				73D2640816EFC0190039600A /* JBSideViewController.m in Sources */,
+				73D2640916EFC0190039600A /* main.m in Sources */,
+				73D2640E16EFC0490039600A /* JLBSlidingPanelViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXVariantGroup section */
-		ABF8B60C167F9FC500E96B94 /* InfoPlist.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				ABF8B60D167F9FC500E96B94 /* en */,
-			);
-			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		ABF8B61B167F9FC500E96B94 /* Debug */ = {
@@ -215,7 +193,6 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -243,7 +220,6 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
@@ -260,9 +236,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Panelish/Panelish-Prefix.pch";
-				INFOPLIST_FILE = "Panelish/Panelish-Info.plist";
+				GCC_PREFIX_HEADER = "Panelish-Prefix.pch";
+				INFOPLIST_FILE = "Panelish-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -271,9 +249,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Panelish/Panelish-Prefix.pch";
-				INFOPLIST_FILE = "Panelish/Panelish-Info.plist";
+				GCC_PREFIX_HEADER = "Panelish-Prefix.pch";
+				INFOPLIST_FILE = "Panelish-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
