@@ -39,6 +39,7 @@ const CGFloat kJLBMinimumBackgroundScale = 0.95f;
 @property (nonatomic, readwrite) enum JLBSlidingPanelState state;
 @property (nonatomic, weak) UIViewController *visibleBackgroundViewController;
 @property (strong, nonatomic) NSMutableSet *disabledViewsInMain;
+@property (weak, nonatomic) UIView *faderView;
 @property (nonatomic) BOOL overlapEnabled;
 @end
 
@@ -65,8 +66,8 @@ const CGFloat kJLBMinimumBackgroundScale = 0.95f;
 - (void)setup
 {
     self.overlapEnabled = YES;
-    self.leftViewWidth = 255.0f;
-    self.rightViewWidth = 255.0f;
+    self.leftViewWidth = 260.0f;
+    self.rightViewWidth = 260.0f;
     self.state = JLBSlidingPanelStateCenter;
     self.scrollingAnimationEnabled = YES;
     self.disabledViewsInMain = [NSMutableSet set];
@@ -75,9 +76,15 @@ const CGFloat kJLBMinimumBackgroundScale = 0.95f;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    self.view.backgroundColor = [UIColor blackColor];
-    
+
+    UIView *faderView = [[UIView alloc] initWithFrame:self.view.bounds];
+    faderView.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
+    faderView.backgroundColor = [UIColor blackColor];
+    faderView.alpha = kJLBMinimumBackgroundAlpha;
+    faderView.userInteractionEnabled = NO;
+    [self.view addSubview:faderView];
+    self.faderView = faderView;
+
     JBPanelScrollView *scrollView = [[JBPanelScrollView alloc] initWithFrame:self.view.bounds];
     self.scrollView = scrollView;
 
@@ -206,7 +213,6 @@ const CGFloat kJLBMinimumBackgroundScale = 0.95f;
             [_visibleBackgroundViewController willMoveToParentViewController:nil];
             [_visibleBackgroundViewController viewWillDisappear:NO];
             _visibleBackgroundViewController.view.transform = CGAffineTransformIdentity;
-            _visibleBackgroundViewController.view.alpha = 1.0f;
             [_visibleBackgroundViewController.view removeFromSuperview];
             [_visibleBackgroundViewController viewDidDisappear:NO];
             [_visibleBackgroundViewController removeFromParentViewController];
@@ -264,8 +270,11 @@ const CGFloat kJLBMinimumBackgroundScale = 0.95f;
         CGFloat xOffsetFromCenter = scrollViewOffsetX - mainViewWidth;
         
         if (self.overlapEnabled) {
-            // TODO: take into account the left and right widths, not just the left
-            CGFloat adjustmentX = (CGRectGetWidth(self.view.bounds) - self.leftViewWidth) * (xOffsetFromCenter / mainViewWidth);
+            CGFloat width = self.rightViewWidth;
+            if (scrollViewOffsetX < mainViewWidth) {
+                width = self.leftViewWidth;
+            }
+            CGFloat adjustmentX = (CGRectGetWidth(self.view.bounds) - width) * (xOffsetFromCenter / mainViewWidth);
             self.mainViewController.view.transform = CGAffineTransformMakeTranslation(adjustmentX, 0.0f);
         }
         
@@ -282,9 +291,8 @@ const CGFloat kJLBMinimumBackgroundScale = 0.95f;
         
         CGFloat scale = MIN(1.0f, kJLBMinimumBackgroundScale + ((1.0f - kJLBMinimumBackgroundScale) * ABS(xOffsetFromCenter / mainViewWidth)));
         CGFloat alpha = kJLBMinimumBackgroundAlpha + ((1.0f - kJLBMinimumBackgroundAlpha) * ABS(xOffsetFromCenter / mainViewWidth));
-
         self.visibleBackgroundViewController.view.transform = CGAffineTransformMakeScale(scale, scale);
-        self.visibleBackgroundViewController.view.alpha = alpha;
+        self.faderView.alpha = 1 - alpha;
     }
 }
 
@@ -301,15 +309,15 @@ const CGFloat kJLBMinimumBackgroundScale = 0.95f;
 {
     self.visibleBackgroundViewController = self.leftViewController;
     self.visibleBackgroundViewController.view.transform = CGAffineTransformMakeScale(kJLBMinimumBackgroundScale, kJLBMinimumBackgroundScale);
-    self.visibleBackgroundViewController.view.alpha = kJLBMinimumBackgroundAlpha;
     self.view.userInteractionEnabled = NO;
     self.scrollingAnimationEnabled = NO;
-    
+    self.faderView.alpha = kJLBMinimumBackgroundAlpha;
+
     [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationCurveEaseOut animations:^{
         self.scrollView.contentOffset = CGPointMake(-10.0f, 0.0f);
         self.visibleBackgroundViewController.view.transform = CGAffineTransformIdentity;
-        self.visibleBackgroundViewController.view.alpha = 1.0f;
         self.mainViewController.view.transform = CGAffineTransformMakeTranslation(-(CGRectGetWidth(self.view.bounds) - self.leftViewWidth), 0.0f);
+        self.faderView.alpha = 0;
     } completion:^(BOOL finished) {
         self.view.userInteractionEnabled = YES;
         self.state = JLBSlidingPanelStateLeft;
@@ -325,15 +333,15 @@ const CGFloat kJLBMinimumBackgroundScale = 0.95f;
 {
     self.visibleBackgroundViewController = self.rightViewController;
     self.visibleBackgroundViewController.view.transform = CGAffineTransformMakeScale(kJLBMinimumBackgroundScale, kJLBMinimumBackgroundScale);
-    self.visibleBackgroundViewController.view.alpha = kJLBMinimumBackgroundAlpha;
     self.view.userInteractionEnabled = NO;
     self.scrollingAnimationEnabled = NO;
+    self.faderView.alpha = kJLBMinimumBackgroundAlpha;
     
     [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationCurveEaseOut animations:^{
         self.scrollView.contentOffset = CGPointMake((CGRectGetWidth(self.scrollView.frame) * 2.0f) + 10.0f, 0.0f);
         self.visibleBackgroundViewController.view.transform = CGAffineTransformIdentity;
-        self.visibleBackgroundViewController.view.alpha = 1.0f;
         self.mainViewController.view.transform = CGAffineTransformMakeTranslation(CGRectGetWidth(self.view.bounds)-self.rightViewWidth, 0.0f);
+        self.faderView.alpha = 0;        
     } completion:^(BOOL finished) {
         self.view.userInteractionEnabled = YES;
         self.state = JLBSlidingPanelStateRight;
@@ -357,9 +365,9 @@ const CGFloat kJLBMinimumBackgroundScale = 0.95f;
     
     [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationCurveEaseOut animations:^{
         self.scrollView.contentOffset = CGPointMake(CGRectGetWidth(self.scrollView.frame), 0.0f);
-        self.visibleBackgroundViewController.view.transform = CGAffineTransformMakeScale(kJLBMinimumBackgroundScale, kJLBMinimumBackgroundScale);
-        self.visibleBackgroundViewController.view.alpha = kJLBMinimumBackgroundAlpha;
+        self.visibleBackgroundViewController.view.transform = CGAffineTransformMakeScale(kJLBMinimumBackgroundScale, kJLBMinimumBackgroundScale);;
         self.mainViewController.view.transform = CGAffineTransformIdentity;
+        self.faderView.alpha = kJLBMinimumBackgroundAlpha;
     } completion:^(BOOL finished) {
         self.view.userInteractionEnabled = YES;
         self.scrollingAnimationEnabled = YES;

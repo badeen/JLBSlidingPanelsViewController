@@ -20,8 +20,8 @@ NS_ENUM(NSUInteger, JLBSlidingPanelState) {
 @property (nonatomic, strong) UIViewController *leftViewController;
 @property (nonatomic, strong) UIViewController *rightViewController;
 @property (nonatomic, readonly) enum JLBSlidingPanelState state;
-@property (nonatomic) CGFloat leftViewWidth;
 @property (nonatomic) CGFloat rightViewWidth;
+@property (nonatomic) CGFloat leftViewWidth;
 
 - (void)setMainViewController:(UIViewController *)mainViewController animated:(BOOL)animated;
 - (IBAction)revealLeft:(id)sender;
