@@ -146,6 +146,14 @@ const CGFloat kJLBMinimumBackgroundScale = 0.95f;
     [self.view layoutSubviews];
 }
 
+- (BOOL)slidingEnabled{
+    return self.scrollView.scrollEnabled;
+}
+
+- (void)setSlidingEnabled:(BOOL)slidingEnabled{
+    self.scrollView.scrollEnabled = slidingEnabled;
+}
+
 - (void)setMainViewController:(UIViewController *)mainViewController
 {
     [self setMainViewController:mainViewController animated:NO];

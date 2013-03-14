@@ -41,7 +41,7 @@
     JBSideViewController *rightVC = [[JBSideViewController alloc] initWithStyle:UITableViewStylePlain];
     rightVC.textAlignment = NSTextAlignmentRight;
     rightVC.delegate = self;
-//    viewController.rightViewController = rightVC;
+    viewController.rightViewController = rightVC;
 
     [self.window makeKeyAndVisible];
 
