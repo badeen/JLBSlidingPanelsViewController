@@ -88,6 +88,7 @@ const CGFloat kJLBMinimumBackgroundScale = 0.95f;
     JBPanelScrollView *scrollView = [[JBPanelScrollView alloc] initWithFrame:self.view.bounds];
     self.scrollView = scrollView;
 
+    [self.view layoutSubviews];
     scrollView.contentSize = CGSizeMake(CGRectGetWidth(self.scrollView.bounds) * 3.0f, CGRectGetHeight(self.scrollView.bounds));
     scrollView.contentOffset = CGPointMake(CGRectGetWidth(self.scrollView.bounds), 0.0f);
     scrollView.showsHorizontalScrollIndicator = NO;
@@ -130,6 +131,22 @@ const CGFloat kJLBMinimumBackgroundScale = 0.95f;
         }
         self.scrollingAnimationEnabled = YES;
     }
+}
+
+- (void)resizeScrollViewContentSize
+{
+    CGFloat widthMultiplier = 1;
+    if (_leftViewController) {
+        widthMultiplier ++;
+    }
+    if (_rightViewController) {
+        widthMultiplier ++;
+    }
+    if (_leftViewController && _rightViewController) {
+        self.scrollView.contentSize = CGSizeMake(CGRectGetWidth(self.scrollView.bounds) * widthMultiplier, CGRectGetHeight(self.scrollView.bounds));
+    }
+    
+    [self.view layoutSubviews];
 }
 
 - (void)setMainViewController:(UIViewController *)mainViewController
@@ -244,6 +261,20 @@ const CGFloat kJLBMinimumBackgroundScale = 0.95f;
             [self.disabledViewsInMain removeAllObjects];
         }
     }
+}
+
+- (void)setLeftViewController:(UIViewController *)leftViewController
+{
+    _leftViewController = leftViewController;
+    
+    [self resizeScrollViewContentSize];
+}
+
+- (void)setRightViewController:(UIViewController *)rightViewController
+{
+    _rightViewController = rightViewController;
+    
+    [self resizeScrollViewContentSize];
 }
 
 #pragma mark - Scroll view delegate
