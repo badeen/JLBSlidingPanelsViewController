@@ -88,8 +88,6 @@ const CGFloat kJLBMinimumBackgroundScale = 0.95f;
     JBPanelScrollView *scrollView = [[JBPanelScrollView alloc] initWithFrame:self.view.bounds];
     self.scrollView = scrollView;
 
-    [self.view layoutSubviews];
-    scrollView.contentSize = CGSizeMake(CGRectGetWidth(self.scrollView.bounds) * 3.0f, CGRectGetHeight(self.scrollView.bounds));
     scrollView.contentOffset = CGPointMake(CGRectGetWidth(self.scrollView.bounds), 0.0f);
     scrollView.showsHorizontalScrollIndicator = NO;
     scrollView.pagingEnabled = YES;    
@@ -109,7 +107,7 @@ const CGFloat kJLBMinimumBackgroundScale = 0.95f;
         self.scrollingAnimationEnabled = NO;
         self.mainViewController.view.transform = CGAffineTransformIdentity;        
         self.scrollView.frame = self.view.bounds;
-        self.scrollView.contentSize = CGSizeMake(CGRectGetWidth(self.scrollView.bounds) * 3.0f, CGRectGetHeight(self.scrollView.bounds));
+        [self resizeScrollViewContentSize];
         CGRect centeredRect = self.scrollView.bounds;
         centeredRect.origin.x = CGRectGetWidth(self.scrollView.bounds);
         self.mainViewController.view.frame = centeredRect;
@@ -121,7 +119,6 @@ const CGFloat kJLBMinimumBackgroundScale = 0.95f;
                 break;
             } case JLBSlidingPanelStateCenter: {
                 self.scrollView.contentOffset = CGPointMake(CGRectGetWidth(self.scrollView.frame), 0.0f);
-                self.mainViewController.view.transform = CGAffineTransformIdentity;
                 break;
             } case JLBSlidingPanelStateRight: {
                 self.scrollView.contentOffset = CGPointMake(CGRectGetWidth(self.scrollView.frame) * 2.0f, 0.0f);
@@ -142,10 +139,10 @@ const CGFloat kJLBMinimumBackgroundScale = 0.95f;
     if (_rightViewController) {
         widthMultiplier ++;
     }
-    if (_leftViewController && _rightViewController) {
-        self.scrollView.contentSize = CGSizeMake(CGRectGetWidth(self.scrollView.bounds) * widthMultiplier, CGRectGetHeight(self.scrollView.bounds));
-    }
-    
+    CGSize contentSize = self.scrollView.bounds.size;
+    contentSize.width *= widthMultiplier;
+    self.scrollView.contentSize = contentSize;
+
     [self.view layoutSubviews];
 }
 
@@ -184,13 +181,17 @@ const CGFloat kJLBMinimumBackgroundScale = 0.95f;
             [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveLinear animations:^{
                 switch (self.state) {
                     case JLBSlidingPanelStateLeft: {
-                        self.mainViewController.view.transform = CGAffineTransformMakeTranslation(-(CGRectGetWidth(self.view.bounds) - self.leftViewWidth), 0.0f);
+                        if (self.leftViewController) {
+                            self.mainViewController.view.transform = CGAffineTransformMakeTranslation(-(CGRectGetWidth(self.view.bounds) - self.leftViewWidth), 0.0f);
+                        }
                         break;
                     } case JLBSlidingPanelStateCenter: {
                         self.mainViewController.view.transform = CGAffineTransformIdentity;
                         break;
                     } case JLBSlidingPanelStateRight: {
-                        self.mainViewController.view.transform = CGAffineTransformMakeTranslation(CGRectGetWidth(self.view.bounds) - self.rightViewWidth, 0.0f);
+                        if (self.rightViewController) {
+                            self.mainViewController.view.transform = CGAffineTransformMakeTranslation(CGRectGetWidth(self.view.bounds) - self.rightViewWidth, 0.0f);
+                        }
                         break;
                     }
                 }
@@ -265,16 +266,18 @@ const CGFloat kJLBMinimumBackgroundScale = 0.95f;
 
 - (void)setLeftViewController:(UIViewController *)leftViewController
 {
-    _leftViewController = leftViewController;
-    
-    [self resizeScrollViewContentSize];
+    if (_leftViewController != leftViewController) {
+        _leftViewController = leftViewController;
+        [self resizeScrollViewContentSize];
+    }
 }
 
 - (void)setRightViewController:(UIViewController *)rightViewController
 {
-    _rightViewController = rightViewController;
-    
-    [self resizeScrollViewContentSize];
+    if (_rightViewController != rightViewController) {
+        _rightViewController = rightViewController;
+        [self resizeScrollViewContentSize];
+    }
 }
 
 #pragma mark - Scroll view delegate
@@ -338,6 +341,10 @@ const CGFloat kJLBMinimumBackgroundScale = 0.95f;
 
 - (IBAction)revealLeft:(id)sender
 {
+    if (!self.leftViewController) {
+        return;
+    }
+
     self.visibleBackgroundViewController = self.leftViewController;
     self.visibleBackgroundViewController.view.transform = CGAffineTransformMakeScale(kJLBMinimumBackgroundScale, kJLBMinimumBackgroundScale);
     self.view.userInteractionEnabled = NO;
@@ -362,6 +369,10 @@ const CGFloat kJLBMinimumBackgroundScale = 0.95f;
 
 - (IBAction)revealRight:(id)sender
 {
+    if (!self.rightViewController) {
+        return;
+    }
+    
     self.visibleBackgroundViewController = self.rightViewController;
     self.visibleBackgroundViewController.view.transform = CGAffineTransformMakeScale(kJLBMinimumBackgroundScale, kJLBMinimumBackgroundScale);
     self.view.userInteractionEnabled = NO;
