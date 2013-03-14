@@ -4,6 +4,8 @@ JLBSlidingPanelsViewController supports left and right panel views. It works on 
 
 ![](https://raw.github.com/kgn/JLBSlidingPanelsViewController/master/action.gif)
 
+Supports iOS 5 or greater.
+
 By Jonathan Badeen:
 
 - [github.com/badeen](https://github.com/badeen)
@@ -13,5 +15,5 @@ By Jonathan Badeen:
 With contributions by David Keegan:
 
 - [github.com/kgn](https://github.com/kgn)
-- [twitter.com/_kgn](http://twitter.com/_kgn)
+- [twitter.com/iamkgn](http://twitter.com/iamkgn)
 
