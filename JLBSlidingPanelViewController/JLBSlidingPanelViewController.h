@@ -14,12 +14,15 @@ NS_ENUM(NSUInteger, JLBSlidingPanelState) {
     JLBSlidingPanelStateRight
 };
 
+@protocol JLBSlidingPanelViewControllerDelegate;
+
 @interface JLBSlidingPanelViewController : UIViewController
 
 @property (nonatomic, weak) UIViewController *mainViewController;
 @property (nonatomic, strong) UIViewController *leftViewController;
 @property (nonatomic, strong) UIViewController *rightViewController;
 @property (nonatomic, readonly) enum JLBSlidingPanelState state;
+@property (nonatomic, weak) id<JLBSlidingPanelViewControllerDelegate> delegate;
 @property (nonatomic) CGFloat rightViewWidth;
 @property (nonatomic) CGFloat leftViewWidth;
 @property (nonatomic) BOOL slidingEnabled;
@@ -28,5 +31,13 @@ NS_ENUM(NSUInteger, JLBSlidingPanelState) {
 - (IBAction)revealLeft:(id)sender;
 - (IBAction)revealRight:(id)sender;
 - (IBAction)hideSides:(id)sender;
+
+@end
+
+@protocol JLBSlidingPanelViewControllerDelegate <NSObject>
+
+@optional
+- (void)slidingPanelViewController:(JLBSlidingPanelViewController *)slidingPanelViewController
+              didSlideToPanelState:(enum JLBSlidingPanelState)slideToPanelState;
 
 @end
