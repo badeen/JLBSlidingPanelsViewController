@@ -332,11 +332,16 @@ const CGFloat kJLBMinimumBackgroundScale = 0.95f;
         return;
     }
 
+    BOOL enableUserInteraction = NO;
+    if(self.leftViewController.view.userInteractionEnabled){
+        self.leftViewController.view.userInteractionEnabled = NO;
+        enableUserInteraction = YES;
+    }
+
     self.visibleBackgroundViewController = self.leftViewController;
     self.visibleBackgroundViewController.view.transform = CGAffineTransformMakeScale(kJLBMinimumBackgroundScale, kJLBMinimumBackgroundScale);
     self.scrollingAnimationEnabled = NO;
     self.faderView.alpha = kJLBMinimumBackgroundAlpha;
-
     [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationCurveEaseOut animations:^{
         self.scrollView.contentOffset = CGPointMake(-10.0f, 0.0f);
         self.visibleBackgroundViewController.view.transform = CGAffineTransformIdentity;
@@ -347,7 +352,11 @@ const CGFloat kJLBMinimumBackgroundScale = 0.95f;
         self.scrollingAnimationEnabled = YES;
         [UIView animateWithDuration:0.2 delay:0 options:UIViewAnimationCurveEaseIn animations:^{
             self.scrollView.contentOffset = CGPointZero;
-        } completion:nil];
+        } completion:^(BOOL finished2){
+            if(enableUserInteraction){
+                self.leftViewController.view.userInteractionEnabled = YES;
+            }
+        }];
     }];
 }
 
@@ -356,7 +365,13 @@ const CGFloat kJLBMinimumBackgroundScale = 0.95f;
     if (!self.rightViewController) {
         return;
     }
-    
+
+    BOOL enableUserInteraction = NO;
+    if(self.rightViewController.view.userInteractionEnabled){
+        self.rightViewController.view.userInteractionEnabled = NO;
+        enableUserInteraction = YES;
+    }
+
     self.visibleBackgroundViewController = self.rightViewController;
     self.visibleBackgroundViewController.view.transform = CGAffineTransformMakeScale(kJLBMinimumBackgroundScale, kJLBMinimumBackgroundScale);
     self.scrollingAnimationEnabled = NO;
@@ -372,7 +387,11 @@ const CGFloat kJLBMinimumBackgroundScale = 0.95f;
         self.scrollingAnimationEnabled = YES;
         [UIView animateWithDuration:0.2 delay:0 options:UIViewAnimationCurveEaseIn animations:^{
             self.scrollView.contentOffset = CGPointMake(CGRectGetWidth(self.scrollView.frame) * 2.0f, 0.0f);
-        } completion:nil];
+        } completion:^(BOOL finished2) {
+            if(enableUserInteraction){
+                self.rightViewController.view.userInteractionEnabled = YES;
+            }
+        }];
     }];
 }
 
