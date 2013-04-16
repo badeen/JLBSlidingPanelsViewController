@@ -2,7 +2,7 @@ JLBSlidingPanelsViewController is a high quality sliding panel view like the one
 
 JLBSlidingPanelsViewController supports left and right panel views. It works on iPhone, iPad, and supports rotation.
 
-![](https://raw.github.com/kgn/JLBSlidingPanelsViewController/master/action.gif)
+![](https://raw.github.com/badeen/JLBSlidingPanelsViewController/master/action.gif)
 
 Supports iOS 5 or greater.
 
