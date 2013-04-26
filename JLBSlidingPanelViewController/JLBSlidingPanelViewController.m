@@ -35,7 +35,7 @@ const CGFloat kJLBMinimumBackgroundScale = 0.95f;
 
 @property (nonatomic, weak) JBPanelScrollView *scrollView;
 @property (nonatomic, getter = isScrollingAnimationEnabled) BOOL scrollingAnimationEnabled;
-@property (nonatomic, readwrite) enum JLBSlidingPanelState state;
+@property (nonatomic, readwrite) JLBSlidingPanelState state;
 @property (nonatomic, weak) UIViewController *visibleBackgroundViewController;
 @property (strong, nonatomic) NSMutableSet *disabledViewsInMain;
 @property (weak, nonatomic) UIView *faderView;
@@ -271,7 +271,7 @@ const CGFloat kJLBMinimumBackgroundScale = 0.95f;
     }
 }
 
-- (void)setState:(enum JLBSlidingPanelState)state{
+- (void)setState:(JLBSlidingPanelState)state{
     if(_state != state){
         _state = state;        
         if([self.delegate respondsToSelector:@selector(slidingPanelViewController:didSlideToPanelState:)]){

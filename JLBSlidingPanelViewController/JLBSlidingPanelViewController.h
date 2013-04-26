@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-NS_ENUM(NSUInteger, JLBSlidingPanelState) {
+typedef NS_ENUM(NSUInteger, JLBSlidingPanelState) {
     JLBSlidingPanelStateLeft,
     JLBSlidingPanelStateCenter,
     JLBSlidingPanelStateRight
@@ -21,7 +21,7 @@ NS_ENUM(NSUInteger, JLBSlidingPanelState) {
 @property (nonatomic, weak) UIViewController *mainViewController;
 @property (nonatomic, strong) UIViewController *leftViewController;
 @property (nonatomic, strong) UIViewController *rightViewController;
-@property (nonatomic, readonly) enum JLBSlidingPanelState state;
+@property (nonatomic, readonly) JLBSlidingPanelState state;
 @property (nonatomic, weak) id<JLBSlidingPanelViewControllerDelegate> delegate;
 @property (nonatomic) CGFloat rightViewWidth;
 @property (nonatomic) CGFloat leftViewWidth;
@@ -38,6 +38,6 @@ NS_ENUM(NSUInteger, JLBSlidingPanelState) {
 
 @optional
 - (void)slidingPanelViewController:(JLBSlidingPanelViewController *)slidingPanelViewController
-              didSlideToPanelState:(enum JLBSlidingPanelState)slideToPanelState;
+              didSlideToPanelState:(JLBSlidingPanelState)slideToPanelState;
 
 @end
