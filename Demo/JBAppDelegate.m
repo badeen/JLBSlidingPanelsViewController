@@ -25,6 +25,7 @@
     
     JLBSlidingPanelViewController *viewController = [[JLBSlidingPanelViewController alloc] init];
     self.window.rootViewController = viewController;
+    [self.window makeKeyAndVisible];
     
     UITableViewController *tableVC = [[UITableViewController alloc] initWithStyle:UITableViewStyleGrouped];
     tableVC.title = @"Panelish 1";
@@ -42,8 +43,6 @@
     rightVC.textAlignment = NSTextAlignmentRight;
     rightVC.delegate = self;
     viewController.rightViewController = rightVC;
-
-    [self.window makeKeyAndVisible];
 
     return YES;
 }
