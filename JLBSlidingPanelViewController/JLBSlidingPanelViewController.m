@@ -67,6 +67,7 @@ const CGFloat kJLBMinimumBackgroundScale = 0.95f;
     self.overlapEnabled = YES;
     self.leftViewWidth = 260.0f;
     self.rightViewWidth = 260.0f;
+    self.animateInBackgroundView = YES;    
     self.state = JLBSlidingPanelStateCenter;
     self.scrollingAnimationEnabled = YES;
     self.disabledViewsInMain = [NSMutableSet set];
@@ -80,6 +81,7 @@ const CGFloat kJLBMinimumBackgroundScale = 0.95f;
     faderView.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
     faderView.backgroundColor = [UIColor blackColor];
     faderView.alpha = kJLBMinimumBackgroundAlpha;
+    [faderView setHidden:!self.animateInBackgroundView];
     [self.view addSubview:faderView];
     self.faderView = faderView;
 
@@ -313,8 +315,20 @@ const CGFloat kJLBMinimumBackgroundScale = 0.95f;
         CGFloat abs = ABS(xOffsetFromCenter / mainViewWidth);
         CGFloat scale = MIN(1.0f, kJLBMinimumBackgroundScale + ((1.0f - kJLBMinimumBackgroundScale) * abs));
         CGFloat alpha = kJLBMinimumBackgroundAlpha + ((1.0f - kJLBMinimumBackgroundAlpha) * ABS(xOffsetFromCenter / mainViewWidth));
-        self.visibleBackgroundViewController.view.transform = CGAffineTransformMakeScale(scale, scale);
-        self.faderView.alpha = 1 - alpha;
+        [self setFaderViewAlpha:1-alpha andVisibleBackgroundViewControllerViewTransform:CGAffineTransformMakeScale(scale, scale)];
+    }
+}
+
+- (void)setAnimateInBackgroundView:(BOOL)animateInBackgroundView{
+    _animateInBackgroundView = animateInBackgroundView;
+    [self.faderView setHidden:!animateInBackgroundView];
+}
+
+- (void)setFaderViewAlpha:(CGFloat)alpha andVisibleBackgroundViewControllerViewTransform:(CGAffineTransform)transform
+{
+    if (self.animateInBackgroundView) {
+        self.visibleBackgroundViewController.view.transform = transform;
+        self.faderView.alpha = alpha;
     }
 }
 
@@ -340,14 +354,12 @@ const CGFloat kJLBMinimumBackgroundScale = 0.95f;
     }
 
     self.visibleBackgroundViewController = self.leftViewController;
-    self.visibleBackgroundViewController.view.transform = CGAffineTransformMakeScale(kJLBMinimumBackgroundScale, kJLBMinimumBackgroundScale);
     self.scrollingAnimationEnabled = NO;
-    self.faderView.alpha = kJLBMinimumBackgroundAlpha;
+    [self setFaderViewAlpha:kJLBMinimumBackgroundAlpha andVisibleBackgroundViewControllerViewTransform:CGAffineTransformMakeScale(kJLBMinimumBackgroundScale, kJLBMinimumBackgroundScale)];    
     [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
         self.scrollView.contentOffset = CGPointMake(-10.0f, 0.0f);
-        self.visibleBackgroundViewController.view.transform = CGAffineTransformIdentity;
         self.mainViewController.view.transform = CGAffineTransformMakeTranslation(-(CGRectGetWidth(self.view.bounds) - self.leftViewWidth), 0.0f);
-        self.faderView.alpha = 0;
+        [self setFaderViewAlpha:0 andVisibleBackgroundViewControllerViewTransform:CGAffineTransformIdentity];
     } completion:^(BOOL finished) {
         self.state = JLBSlidingPanelStateLeft;
         self.scrollingAnimationEnabled = YES;
@@ -374,15 +386,13 @@ const CGFloat kJLBMinimumBackgroundScale = 0.95f;
     }
 
     self.visibleBackgroundViewController = self.rightViewController;
-    self.visibleBackgroundViewController.view.transform = CGAffineTransformMakeScale(kJLBMinimumBackgroundScale, kJLBMinimumBackgroundScale);
     self.scrollingAnimationEnabled = NO;
-    self.faderView.alpha = kJLBMinimumBackgroundAlpha;
-    
+    [self setFaderViewAlpha:kJLBMinimumBackgroundAlpha andVisibleBackgroundViewControllerViewTransform:CGAffineTransformMakeScale(kJLBMinimumBackgroundScale, kJLBMinimumBackgroundScale)];
+
     [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
         self.scrollView.contentOffset = CGPointMake((CGRectGetWidth(self.scrollView.frame) * 2.0f) + 10.0f, 0.0f);
-        self.visibleBackgroundViewController.view.transform = CGAffineTransformIdentity;
         self.mainViewController.view.transform = CGAffineTransformMakeTranslation(CGRectGetWidth(self.view.bounds)-self.rightViewWidth, 0.0f);
-        self.faderView.alpha = 0;        
+        [self setFaderViewAlpha:0 andVisibleBackgroundViewControllerViewTransform:CGAffineTransformIdentity];
     } completion:^(BOOL finished) {
         self.state = JLBSlidingPanelStateRight;
         self.scrollingAnimationEnabled = YES;
@@ -407,9 +417,8 @@ const CGFloat kJLBMinimumBackgroundScale = 0.95f;
     
     [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
         self.scrollView.contentOffset = CGPointMake(CGRectGetWidth(self.scrollView.frame), 0.0f);
-        self.visibleBackgroundViewController.view.transform = CGAffineTransformMakeScale(kJLBMinimumBackgroundScale, kJLBMinimumBackgroundScale);;
         self.mainViewController.view.transform = CGAffineTransformIdentity;
-        self.faderView.alpha = kJLBMinimumBackgroundAlpha;
+        [self setFaderViewAlpha:kJLBMinimumBackgroundAlpha andVisibleBackgroundViewControllerViewTransform:CGAffineTransformMakeScale(kJLBMinimumBackgroundScale, kJLBMinimumBackgroundScale)];
     } completion:^(BOOL finished) {
         self.scrollingAnimationEnabled = YES;
         self.state = JLBSlidingPanelStateCenter;
