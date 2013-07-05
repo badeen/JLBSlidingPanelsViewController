@@ -309,8 +309,9 @@ const CGFloat kJLBMinimumBackgroundScale = 0.95f;
             self.visibleBackgroundViewController = nil;
             self.overlapEnabled = YES;
         }
-        
-        CGFloat scale = MIN(1.0f, kJLBMinimumBackgroundScale + ((1.0f - kJLBMinimumBackgroundScale) * ABS(xOffsetFromCenter / mainViewWidth)));
+
+        CGFloat abs = ABS(xOffsetFromCenter / mainViewWidth);
+        CGFloat scale = MIN(1.0f, kJLBMinimumBackgroundScale + ((1.0f - kJLBMinimumBackgroundScale) * abs));
         CGFloat alpha = kJLBMinimumBackgroundAlpha + ((1.0f - kJLBMinimumBackgroundAlpha) * ABS(xOffsetFromCenter / mainViewWidth));
         self.visibleBackgroundViewController.view.transform = CGAffineTransformMakeScale(scale, scale);
         self.faderView.alpha = 1 - alpha;
