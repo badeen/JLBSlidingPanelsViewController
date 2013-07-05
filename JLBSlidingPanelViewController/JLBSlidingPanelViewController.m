@@ -342,7 +342,7 @@ const CGFloat kJLBMinimumBackgroundScale = 0.95f;
     self.visibleBackgroundViewController.view.transform = CGAffineTransformMakeScale(kJLBMinimumBackgroundScale, kJLBMinimumBackgroundScale);
     self.scrollingAnimationEnabled = NO;
     self.faderView.alpha = kJLBMinimumBackgroundAlpha;
-    [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationCurveEaseOut animations:^{
+    [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
         self.scrollView.contentOffset = CGPointMake(-10.0f, 0.0f);
         self.visibleBackgroundViewController.view.transform = CGAffineTransformIdentity;
         self.mainViewController.view.transform = CGAffineTransformMakeTranslation(-(CGRectGetWidth(self.view.bounds) - self.leftViewWidth), 0.0f);
@@ -350,7 +350,7 @@ const CGFloat kJLBMinimumBackgroundScale = 0.95f;
     } completion:^(BOOL finished) {
         self.state = JLBSlidingPanelStateLeft;
         self.scrollingAnimationEnabled = YES;
-        [UIView animateWithDuration:0.2 delay:0 options:UIViewAnimationCurveEaseIn animations:^{
+        [UIView animateWithDuration:0.2 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
             self.scrollView.contentOffset = CGPointZero;
         } completion:^(BOOL finished2){
             if(enableUserInteraction){
@@ -377,7 +377,7 @@ const CGFloat kJLBMinimumBackgroundScale = 0.95f;
     self.scrollingAnimationEnabled = NO;
     self.faderView.alpha = kJLBMinimumBackgroundAlpha;
     
-    [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationCurveEaseOut animations:^{
+    [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
         self.scrollView.contentOffset = CGPointMake((CGRectGetWidth(self.scrollView.frame) * 2.0f) + 10.0f, 0.0f);
         self.visibleBackgroundViewController.view.transform = CGAffineTransformIdentity;
         self.mainViewController.view.transform = CGAffineTransformMakeTranslation(CGRectGetWidth(self.view.bounds)-self.rightViewWidth, 0.0f);
@@ -385,7 +385,7 @@ const CGFloat kJLBMinimumBackgroundScale = 0.95f;
     } completion:^(BOOL finished) {
         self.state = JLBSlidingPanelStateRight;
         self.scrollingAnimationEnabled = YES;
-        [UIView animateWithDuration:0.2 delay:0 options:UIViewAnimationCurveEaseIn animations:^{
+        [UIView animateWithDuration:0.2 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
             self.scrollView.contentOffset = CGPointMake(CGRectGetWidth(self.scrollView.frame) * 2.0f, 0.0f);
         } completion:^(BOOL finished2) {
             if(enableUserInteraction){
@@ -404,7 +404,7 @@ const CGFloat kJLBMinimumBackgroundScale = 0.95f;
 {
     self.scrollingAnimationEnabled = NO;
     
-    [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationCurveEaseOut animations:^{
+    [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
         self.scrollView.contentOffset = CGPointMake(CGRectGetWidth(self.scrollView.frame), 0.0f);
         self.visibleBackgroundViewController.view.transform = CGAffineTransformMakeScale(kJLBMinimumBackgroundScale, kJLBMinimumBackgroundScale);;
         self.mainViewController.view.transform = CGAffineTransformIdentity;
