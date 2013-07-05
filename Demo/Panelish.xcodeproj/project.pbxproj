@@ -235,6 +235,7 @@
 		ABF8B61E167F9FC500E96B94 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Panelish-Prefix.pch";
 				INFOPLIST_FILE = "Panelish-Info.plist";
@@ -248,6 +249,7 @@
 		ABF8B61F167F9FC500E96B94 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Panelish-Prefix.pch";
 				INFOPLIST_FILE = "Panelish-Info.plist";
