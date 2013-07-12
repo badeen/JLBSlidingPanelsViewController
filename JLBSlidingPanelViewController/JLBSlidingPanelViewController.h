@@ -39,6 +39,10 @@ typedef NS_ENUM(NSUInteger, JLBSlidingPanelState) {
 
 @optional
 - (void)slidingPanelViewController:(JLBSlidingPanelViewController *)slidingPanelViewController
+              willAnimateToPanelState:(JLBSlidingPanelState)slideToPanelState;
+- (void)slidingPanelViewController:(JLBSlidingPanelViewController *)slidingPanelViewController
               didSlideToPanelState:(JLBSlidingPanelState)slideToPanelState;
+- (void)slidingPanelViewController:(JLBSlidingPanelViewController *)slidingPanelViewController
+                didSlideWithOffsetFromCenter:(CGFloat)offsetFromCenter;
 
 @end
