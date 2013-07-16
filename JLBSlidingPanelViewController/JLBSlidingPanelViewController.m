@@ -64,6 +64,8 @@ const CGFloat kJLBMinimumBackgroundScale = 0.95f;
 
 - (void)setup
 {
+    self.shadowRadius = 8.0f;
+    self.shadowOpacity = 1.0f;
     self.overlapEnabled = YES;
     self.leftViewWidth = 260.0f;
     self.rightViewWidth = 260.0f;
@@ -159,6 +161,18 @@ const CGFloat kJLBMinimumBackgroundScale = 0.95f;
     [self setMainViewController:mainViewController animated:NO];
 }
 
+- (void)setShadowOpacity:(CGFloat)shadowOpacity
+{
+    _shadowOpacity = shadowOpacity;
+    self.mainViewController.view.layer.shadowOpacity = shadowOpacity;
+}
+
+- (void)setShadowRadius:(CGFloat)shadowRadius
+{
+    _shadowRadius = shadowRadius;
+    self.mainViewController.view.layer.shadowRadius = shadowRadius;
+}
+
 - (void)setMainViewController:(UIViewController *)mainViewController animated:(BOOL)animated
 {
     if (_mainViewController != mainViewController) {
@@ -178,8 +192,8 @@ const CGFloat kJLBMinimumBackgroundScale = 0.95f;
             toVC.view.layer.shadowPath = [[UIBezierPath bezierPathWithRect:toVC.view.bounds] CGPath];
             toVC.view.layer.shadowColor = [[UIColor blackColor] CGColor];
             toVC.view.layer.shadowOffset = CGSizeZero;
-            toVC.view.layer.shadowRadius = 8.0f;
-            toVC.view.layer.shadowOpacity = 1.0f;
+            toVC.view.layer.shadowRadius = self.shadowRadius;
+            toVC.view.layer.shadowOpacity = self.shadowOpacity;
 
             [toVC viewWillAppear:animated];
         }

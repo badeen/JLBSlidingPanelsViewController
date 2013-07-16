@@ -27,6 +27,8 @@ typedef NS_ENUM(NSUInteger, JLBSlidingPanelState) {
 @property (nonatomic) CGFloat leftViewWidth;
 @property (nonatomic) BOOL slidingEnabled;
 @property (nonatomic) BOOL animateInBackgroundView;
+@property (nonatomic) CGFloat shadowOpacity;
+@property (nonatomic) CGFloat shadowRadius;
 
 - (void)setMainViewController:(UIViewController *)mainViewController animated:(BOOL)animated;
 - (IBAction)revealLeft:(id)sender;
