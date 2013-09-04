@@ -435,6 +435,10 @@ const CGFloat kJLBMinimumBackgroundScale = 0.95f;
 
 - (IBAction)hideSides:(id)sender
 {
+    if(self.state == JLBSlidingPanelStateCenter){
+        return;
+    }
+
     if([self.delegate respondsToSelector:@selector(slidingPanelViewController:willAnimateToPanelState:)]){
         [self.delegate slidingPanelViewController:self willAnimateToPanelState:JLBSlidingPanelStateCenter];
     }
